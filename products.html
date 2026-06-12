@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>产品中心 - 东巍益华</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 导航栏 -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">东</span>
+        <span>东巍益华</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="products.html" class="active">产品中心</a>
+        <a href="solutions.html">解决方案</a>
+        <a href="brands.html">授权品牌</a>
+        <a href="about.html">关于我们</a>
+        <a href="news.html">新闻动态</a>
+        <a href="login.html">登录</a>
+      </div>
+      <a href="contact.html" class="btn btn-primary-outline btn-sm nav-cta">联系我们</a>
+      <a href="cart.html" style="color:#fff;margin-left:12px;position:relative;">
+        购物车
+        <span class="cart-count" style="display:none;position:absolute;top:-8px;right:-14px;background:#CC0000;color:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;line-height:18px;text-align:center;">0</span>
+      </a>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-nav">
+      <a href="index.html">首页</a>
+      <a href="products.html" class="active">产品中心</a>
+      <a href="solutions.html">解决方案</a>
+      <a href="brands.html">授权品牌</a>
+      <a href="about.html">关于我们</a>
+      <a href="news.html">新闻动态</a>
+      <a href="login.html">登录</a>
+      <a href="cart.html">购物车</a>
+      <a href="contact.html" class="btn btn-primary-outline">联系我们</a>
+    </div>
+  </nav>
+
+  <!-- 页面Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <h1>产品中心</h1>
+      <div class="breadcrumb">
+        <a href="index.html">首页</a><span class="separator">/</span><span class="current">产品中心</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 产品内容区 -->
+  <section class="section">
+    <div class="container">
+      <div class="products-layout">
+        <!-- 筛选面板 -->
+        <aside class="filter-panel" id="filter-form">
+          <h4 style="margin-bottom:16px;font-size:1rem;">筛选条件</h4>
+
+          <div class="filter-group">
+            <h4>品牌</h4>
+            <label><input type="checkbox" name="brand" value="华测"> 华测导航</label>
+            <label><input type="checkbox" name="brand" value="南方测绘"> 南方测绘</label>
+            <label><input type="checkbox" name="brand" value="北斗中移"> 北斗中移</label>
+            <label><input type="checkbox" name="brand" value="科力达"> 科力达</label>
+          </div>
+
+          <div class="filter-group">
+            <h4>产品分类</h4>
+            <label><input type="checkbox" name="category" value="RTK测量系统"> RTK测量系统</label>
+            <label><input type="checkbox" name="category" value="全站仪"> 全站仪</label>
+            <label><input type="checkbox" name="category" value="无人机航测系统"> 无人机航测系统</label>
+            <label><input type="checkbox" name="category" value="水准仪"> 水准仪</label>
+            <label><input type="checkbox" name="category" value="测绘配件"> 测绘配件</label>
+          </div>
+
+          <div class="filter-group">
+            <h4>价格区间</h4>
+            <div class="filter-price-row">
+              <input type="number" id="price-min" placeholder="最低价" min="0">
+              <span>-</span>
+              <input type="number" id="price-max" placeholder="最高价" min="0">
+            </div>
+          </div>
+        </aside>
+
+        <!-- 产品网格 -->
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+            <span id="result-count" style="color:#757575;font-size:0.875rem;">共 8 个产品</span>
+          </div>
+
+          <div class="product-grid" id="product-grid"></div>
+
+          <div id="no-results" style="display:none;text-align:center;padding:64px 0;color:#757575;">
+            <p style="font-size:1.125rem;margin-bottom:8px;">没有找到匹配的产品</p>
+            <p style="font-size:0.875rem;">请调整筛选条件重新搜索</p>
+          </div>
+
+          <div class="pagination" id="pagination"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-col-brand">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <span style="width:36px;height:36px;background:var(--dhwy-red);border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;">东</span>
+            <h4 style="margin:0;">东巍益华</h4>
+          </div>
+          <p>专业测绘仪器销售与服务商，华测、南方测绘、北斗中移、科力达授权代理商。提供测绘仪器销售、租赁、维修及技术咨询一站式服务。</p>
+        </div>
+        <div class="footer-col">
+          <h4>快速链接</h4>
+          <div class="footer-links">
+            <a href="products.html">产品中心</a>
+            <a href="solutions.html">解决方案</a>
+            <a href="brands.html">授权品牌</a>
+            <a href="about.html">关于我们</a>
+            <a href="news.html">新闻动态</a>
+            <a href="contact.html">联系我们</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>产品分类</h4>
+          <div class="footer-links">
+            <a href="products.html">RTK测量系统</a>
+            <a href="products.html">全站仪</a>
+            <a href="products.html">无人机航测系统</a>
+            <a href="products.html">水准仪</a>
+            <a href="products.html">测绘配件</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>联系方式</h4>
+          <div style="font-size:0.875rem;line-height:2;">
+            <p>电话：19112456894</p>
+            <p>邮箱：info@dongweiyihua.com</p>
+            <p>地址：重庆市巴南区东城大道2376号附3号4楼</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 东巍益华 版权所有</span>
+        <span>ICP备案号：黔ICP备XXXXXXXX号</span>
+        <span style="margin-left:16px;">公安备案号：渝公网安备 XXXXXXXXXXXX号</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
