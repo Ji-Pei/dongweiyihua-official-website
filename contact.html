@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>联系我们 - 东巍益华</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">东</span><span>东巍益华</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">首页</a><a href="products.html">产品中心</a>
+        <a href="solutions.html">解决方案</a><a href="brands.html">授权品牌</a>
+        <a href="about.html">关于我们</a><a href="news.html">新闻动态</a>
+        <a href="contact.html" class="active">联系我们</a>
+        <a href="login.html">登录</a>
+      </div>
+      <a href="contact.html" class="btn btn-primary-outline btn-sm nav-cta">联系我们</a>
+      <a href="cart.html" style="color:#fff;margin-left:12px;position:relative;">
+        购物车
+        <span class="cart-count" style="display:none;position:absolute;top:-8px;right:-14px;background:#CC0000;color:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;line-height:18px;text-align:center;">0</span>
+      </a>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-nav">
+      <a href="index.html">首页</a><a href="products.html">产品中心</a>
+      <a href="solutions.html">解决方案</a><a href="brands.html">授权品牌</a>
+      <a href="about.html">关于我们</a><a href="news.html">新闻动态</a>
+      <a href="contact.html" class="active">联系我们</a><a href="login.html">登录</a><a href="cart.html">购物车</a>
+      <a href="contact.html" class="btn btn-primary-outline">联系我们</a>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <h1>联系我们</h1>
+      <div class="breadcrumb">
+        <a href="index.html">首页</a><span class="separator">/</span><span class="current">联系我们</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-layout">
+        <!-- 左侧联系信息 -->
+        <div class="contact-info">
+          <h2>联系方式</h2>
+          <p style="color:#757575;line-height:1.75;margin-bottom:32px;">欢迎随时联系我们，我们将在第一时间为您提供专业的测绘仪器咨询与服务。</p>
+
+          <div class="contact-info-item">
+            <div class="contact-info-icon" style="background:var(--dhwy-red-light);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#9742;</div>
+            <div>
+              <strong>联系电话</strong>
+              <p style="color:#757575;font-size:0.875rem;">19112456894</p>
+              <p style="color:#757575;font-size:0.875rem;">138-XXXX-XXXX</p>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-info-icon" style="background:var(--dhwy-red-light);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#9993;</div>
+            <div>
+              <strong>电子邮箱</strong>
+              <p style="color:#757575;font-size:0.875rem;">info@dongweiyihua.com</p>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-info-icon" style="background:var(--dhwy-red-light);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#9872;</div>
+            <div>
+              <strong>公司地址</strong>
+              <p style="color:#757575;font-size:0.875rem;">重庆市巴南区东城大道2376号附3号4楼</p>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-info-icon" style="background:var(--dhwy-red-light);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#8986;</div>
+            <div>
+              <strong>工作时间</strong>
+              <p style="color:#757575;font-size:0.875rem;">周一至周五 9:00 - 18:00</p>
+              <p style="color:#757575;font-size:0.875rem;">周六 9:00 - 12:00</p>
+            </div>
+          </div>
+
+          <div style="margin-top:24px;">
+            <strong style="display:block;margin-bottom:12px;">关注我们</strong>
+            <div class="qr-placeholder">微信公众号<br>二维码占位</div>
+          </div>
+        </div>
+
+        <!-- 右侧表单 -->
+        <div class="contact-form" id="contact-form">
+          <h3>在线留言</h3>
+          <div id="form-success" class="form-success">感谢您的留言，我们会尽快与您联系！</div>
+
+          <div class="form-group">
+            <label for="contact-name">姓名 *</label>
+            <input type="text" id="contact-name" placeholder="请输入您的姓名">
+            <span class="error-msg">请输入您的姓名</span>
+          </div>
+
+          <div class="form-group">
+            <label for="contact-phone">联系电话 *</label>
+            <input type="tel" id="contact-phone" placeholder="请输入您的手机号码">
+            <span class="error-msg">请输入正确的手机号码</span>
+          </div>
+
+          <div class="form-group">
+            <label for="contact-email">电子邮箱</label>
+            <input type="email" id="contact-email" placeholder="请输入您的电子邮箱（选填）">
+          </div>
+
+          <div class="form-group">
+            <label for="contact-company">公司名称</label>
+            <input type="text" id="contact-company" placeholder="请输入您的公司名称（选填）">
+          </div>
+
+          <div class="form-group">
+            <label for="contact-message">留言内容 *</label>
+            <textarea id="contact-message" placeholder="请描述您的需求，如产品咨询、方案需求、售后服务等"></textarea>
+            <span class="error-msg">请输入您的留言内容</span>
+          </div>
+
+          <button type="submit" class="btn btn-filled" style="width:100%;">提交留言</button>
+        </div>
+      </div>
+
+      <!-- 地图占位 -->
+      <div class="map-placeholder">
+        <div style="text-align:center;">
+          <div style="font-size:2rem;margin-bottom:8px;">&#127758;</div>
+          地图位置（请替换为实际地图嵌入代码）
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-col-brand">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <span style="width:36px;height:36px;background:var(--dhwy-red);border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;">东</span>
+            <h4 style="margin:0;">东巍益华</h4>
+          </div>
+          <p>专业测绘仪器销售与服务商，华测、南方测绘、北斗中移、科力达授权代理商。提供测绘仪器销售、租赁、维修及技术咨询一站式服务。</p>
+        </div>
+        <div class="footer-col">
+          <h4>快速链接</h4>
+          <div class="footer-links">
+            <a href="products.html">产品中心</a>
+            <a href="solutions.html">解决方案</a>
+            <a href="brands.html">授权品牌</a>
+            <a href="about.html">关于我们</a>
+            <a href="news.html">新闻动态</a>
+            <a href="contact.html">联系我们</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>产品分类</h4>
+          <div class="footer-links">
+            <a href="products.html">RTK测量系统</a>
+            <a href="products.html">全站仪</a>
+            <a href="products.html">无人机航测系统</a>
+            <a href="products.html">水准仪</a>
+            <a href="products.html">测绘配件</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>联系方式</h4>
+          <div style="font-size:0.875rem;line-height:2;">
+            <p>电话：19112456894</p>
+            <p>邮箱：info@dongweiyihua.com</p>
+            <p>地址：重庆市巴南区东城大道2376号附3号4楼</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 东巍益华 版权所有</span>
+        <span>ICP备案号：黔ICP备XXXXXXXX号</span>
+        <span style="margin-left:16px;">公安备案号：渝公网安备 XXXXXXXXXXXX号</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
