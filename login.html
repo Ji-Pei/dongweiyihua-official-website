@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录/注册 - 东巍益华</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 导航栏 -->
+  <header class="nav">
+    <div class="nav-inner container">
+      <a href="index.html" class="nav-logo">
+        <span style="width:32px;height:32px;background:var(--dhwy-red);border-radius:4px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:0.875rem;">东</span>
+        <span class="logo-text">东巍益华</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">首页</a><a href="products.html">产品中心</a><a href="solutions.html">解决方案</a><a href="brands.html">授权品牌</a><a href="about.html">关于我们</a><a href="news.html">新闻动态</a><a href="contact.html">联系我们</a><a href="login.html" class="active">登录</a>
+      </nav>
+      <a href="contact.html" class="btn btn-primary-outline nav-cta">联系我们</a>
+      <button class="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <div class="mobile-nav"><a href="index.html">首页</a><a href="products.html">产品中心</a><a href="solutions.html">解决方案</a><a href="brands.html">授权品牌</a><a href="about.html">关于我们</a><a href="news.html">新闻动态</a><a href="contact.html">联系我们</a><a href="login.html">登录</a></div>
+
+  <!-- 登录/注册 -->
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">登录</button>
+        <button class="auth-tab" data-tab="register">注册</button>
+      </div>
+
+      <!-- 登录表单 -->
+      <!-- CRMEB API: POST /api/pc/login  { phone, password } → { token, user } -->
+      <form class="auth-form active" id="login-form">
+        <div class="form-group">
+          <label for="login-phone">手机号</label>
+          <input type="tel" id="login-phone" placeholder="请输入手机号" maxlength="11">
+          <span class="error-msg"></span>
+        </div>
+        <div class="form-group">
+          <label for="login-password">密码</label>
+          <input type="password" id="login-password" placeholder="请输入密码">
+          <span class="error-msg"></span>
+        </div>
+        <button type="submit" class="btn btn-filled btn-block">登录</button>
+        <p style="text-align:center;margin-top:16px;font-size:0.8125rem;">
+          <a href="#" id="forgot-link" style="color:var(--dhwy-text-gray);">忘记密码？</a>
+        </p>
+      </form>
+
+      <!-- 注册表单 -->
+      <!-- CRMEB API: POST /api/pc/register  { phone, code, password } -->
+      <form class="auth-form" id="register-form">
+        <div class="form-group">
+          <label for="reg-phone">手机号</label>
+          <input type="tel" id="reg-phone" placeholder="请输入手机号" maxlength="11">
+          <span class="error-msg"></span>
+        </div>
+        <div class="form-group">
+          <label for="reg-code">验证码</label>
+          <div class="auth-sms-row">
+            <input type="text" id="reg-code" placeholder="请输入验证码" maxlength="6">
+            <button type="button" class="btn btn-secondary-outline btn-sm" id="send-code-btn">发送验证码</button>
+          </div>
+          <span class="error-msg"></span>
+        </div>
+        <div class="form-group">
+          <label for="reg-password">密码</label>
+          <input type="password" id="reg-password" placeholder="至少6位密码">
+          <span class="error-msg"></span>
+        </div>
+        <div class="form-group">
+          <label for="reg-password2">确认密码</label>
+          <input type="password" id="reg-password2" placeholder="再次输入密码">
+          <span class="error-msg"></span>
+        </div>
+        <button type="submit" class="btn btn-filled btn-block">注册</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-col-brand">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+            <span style="width:32px;height:32px;background:var(--dhwy-red);border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:0.875rem;">东</span>
+            <h4 style="margin:0;font-size:1rem;">东巍益华</h4>
+          </div>
+          <p style="font-size:0.8125rem;">专业测绘仪器销售与服务商，华测、南方测绘、北斗中移、科力达授权代理商。</p>
+        </div>
+        <div class="footer-col">
+          <h4>快速链接</h4>
+          <div class="footer-links footer-links-double">
+            <a href="products.html">产品中心</a><a href="solutions.html">解决方案</a>
+            <a href="brands.html">授权品牌</a><a href="about.html">关于我们</a>
+            <a href="news.html">新闻动态</a><a href="contact.html">联系我们</a>
+            <a href="products.html">RTK测量</a><a href="products.html">全站仪</a>
+            <a href="products.html">无人机航测</a><a href="products.html">水准仪</a>
+            <a href="products.html">测绘配件</a>
+          </div>
+        </div>
+        <div class="footer-col footer-col-contact">
+          <h4>联系方式</h4>
+          <p class="footer-contact-compact">19112456894</p>
+          <p class="footer-contact-compact" style="font-size:0.75rem;color:var(--dhwy-text-muted);">重庆市巴南区东城大道2376号附3号4楼</p>
+          <p class="footer-contact-compact" style="font-size:0.75rem;color:var(--dhwy-text-muted);">info@dongweiyihua.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 东巍益华 版权所有</span>
+        <span>ICP备案号：黔ICP备XXXXXXXX号</span>
+        <span style="margin-left:16px;">公安备案号：渝公网安备 XXXXXXXXXXXX号</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
