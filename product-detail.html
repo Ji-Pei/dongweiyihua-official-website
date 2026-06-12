@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>产品详情 - 东巍益华</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 导航栏 -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">东</span>
+        <span>东巍益华</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="products.html" class="active">产品中心</a>
+        <a href="solutions.html">解决方案</a>
+        <a href="brands.html">授权品牌</a>
+        <a href="about.html">关于我们</a>
+        <a href="news.html">新闻动态</a>
+        <a href="login.html">登录</a>
+      </div>
+      <a href="contact.html" class="btn btn-primary-outline btn-sm nav-cta">联系我们</a>
+      <a href="cart.html" style="color:#fff;margin-left:12px;position:relative;">
+        购物车
+        <span class="cart-count" style="display:none;position:absolute;top:-8px;right:-14px;background:#CC0000;color:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;line-height:18px;text-align:center;">0</span>
+      </a>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </div>
+    <div class="mobile-nav">
+      <a href="index.html">首页</a>
+      <a href="products.html" class="active">产品中心</a>
+      <a href="solutions.html">解决方案</a>
+      <a href="brands.html">授权品牌</a>
+      <a href="about.html">关于我们</a>
+      <a href="news.html">新闻动态</a>
+      <a href="login.html">登录</a>
+      <a href="cart.html">购物车</a>
+      <a href="contact.html" class="btn btn-primary-outline">联系我们</a>
+    </div>
+  </nav>
+
+  <!-- 面包屑 -->
+  <div style="padding:100px 0 0;">
+    <div class="container">
+      <div class="breadcrumb" style="color:#757575;">
+        <a href="index.html" style="color:#757575;">首页</a><span class="separator">/</span>
+        <a href="products.html" style="color:#757575;">产品中心</a><span class="separator">/</span>
+        <span class="current" style="color:#1a1a1a;">产品详情</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 产品详情 -->
+  <section class="section" style="padding-top:16px;" id="product-detail-content">
+    <div class="container">
+      <div class="product-detail-layout">
+        <!-- 左侧图片 -->
+        <div class="product-gallery">
+          <div class="product-gallery-main" style="background:#f5f5f5;display:flex;align-items:center;justify-content:center;color:#757575;">
+            产品图片
+          </div>
+          <div class="product-gallery-thumbs">
+            <div class="product-gallery-thumb active"></div>
+            <div class="product-gallery-thumb"></div>
+            <div class="product-gallery-thumb"></div>
+          </div>
+        </div>
+
+        <!-- 右侧信息 -->
+        <div class="product-info">
+          <span style="color:#757575;font-size:0.875rem;" id="detail-brand">华测</span>
+          <h1 id="detail-name">华测RTK天骄X6</h1>
+          <p style="color:#757575;font-size:0.9375rem;margin-bottom:16px;" id="detail-model">型号: CHC-X6</p>
+
+          <p class="product-price" id="detail-price">¥38,000 - ¥52,000</p>
+
+          <div class="stock-status in-stock">
+            <span class="stock-dot green"></span>
+            <span>现货供应</span>
+          </div>
+
+          <div class="quantity-selector">
+            <span>数量</span>
+            <button class="quantity-btn qty-minus">-</button>
+            <input class="quantity-input" type="text" value="1" readonly>
+            <button class="quantity-btn qty-plus">+</button>
+          </div>
+
+          <div class="product-actions">
+            <button class="btn btn-primary-outline" id="add-to-cart-btn">加入购物车</button>
+            <a href="cart.html" class="btn btn-filled" id="buy-now-btn">立即购买</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 技术参数表 -->
+      <div style="margin-top:48px;">
+        <h3 style="margin-bottom:24px;">技术参数</h3>
+        <table class="tech-table">
+          <tbody>
+            <tr><th>卫星跟踪</th><td>GPS L1/L2, GLONASS G1/G2, BDS B1/B2/B3, GALILEO E1/E5</td></tr>
+            <tr><th>通道数</th><td>800+</td></tr>
+            <tr><th>静态精度</th><td>平面: ±(2.5mm+0.5ppm) 高程: ±(5mm+0.5ppm)</td></tr>
+            <tr><th>RTK精度</th><td>平面: ±(8mm+1ppm) 高程: ±(15mm+1ppm)</td></tr>
+            <tr><th>初始化时间</th><td>&lt;5s (典型)</td></tr>
+            <tr><th>操作系统</th><td>Linux</td></tr>
+            <tr><th>数据存储</th><td>8GB内置内存</td></tr>
+            <tr><th>通讯方式</th><td>4G全网通/WiFi/蓝牙/UHF电台</td></tr>
+            <tr><th>电池续航</th><td>12小时（静态）/ 8小时（移动站）</td></tr>
+            <tr><th>防护等级</th><td>IP67</td></tr>
+            <tr><th>工作温度</th><td>-40℃ ~ +65℃</td></tr>
+            <tr><th>重量</th><td>1.2kg（主机）</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 相关推荐 -->
+      <div class="related-products">
+        <h3>相关推荐</h3>
+        <div class="product-cards-row">
+          <div class="product-card">
+            <div class="product-card-img"></div>
+            <div class="product-card-body">
+              <h4>南方测绘RTK银河6</h4>
+              <p class="model">型号: Galaxy G6</p>
+              <p class="price">¥35,000 - ¥48,000</p>
+              <a href="product-detail.html?id=2" class="btn btn-secondary-outline btn-sm">查看详情</a>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"></div>
+            <div class="product-card-body">
+              <h4>科力达GPS手持机K9 Pro</h4>
+              <p class="model">型号: K9 Pro</p>
+              <p class="price">¥10,000 - ¥15,000</p>
+              <a href="product-detail.html?id=8" class="btn btn-secondary-outline btn-sm">查看详情</a>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"></div>
+            <div class="product-card-body">
+              <h4>南方测绘全站仪NTS-342</h4>
+              <p class="model">型号: NTS-342R10A</p>
+              <p class="price">¥25,000 - ¥32,000</p>
+              <a href="product-detail.html?id=3" class="btn btn-secondary-outline btn-sm">查看详情</a>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card-img"></div>
+            <div class="product-card-body">
+              <h4>北斗中移无人机BD-SKY V2</h4>
+              <p class="model">型号: BD-SKY V2</p>
+              <p class="price">¥75,000 - ¥95,000</p>
+              <a href="product-detail.html?id=5" class="btn btn-secondary-outline btn-sm">查看详情</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-col-brand">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <span style="width:36px;height:36px;background:var(--dhwy-red);border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;">东</span>
+            <h4 style="margin:0;">东巍益华</h4>
+          </div>
+          <p>专业测绘仪器销售与服务商，华测、南方测绘、北斗中移、科力达授权代理商。提供测绘仪器销售、租赁、维修及技术咨询一站式服务。</p>
+        </div>
+        <div class="footer-col">
+          <h4>快速链接</h4>
+          <div class="footer-links">
+            <a href="products.html">产品中心</a>
+            <a href="solutions.html">解决方案</a>
+            <a href="brands.html">授权品牌</a>
+            <a href="about.html">关于我们</a>
+            <a href="news.html">新闻动态</a>
+            <a href="contact.html">联系我们</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>产品分类</h4>
+          <div class="footer-links">
+            <a href="products.html">RTK测量系统</a>
+            <a href="products.html">全站仪</a>
+            <a href="products.html">无人机航测系统</a>
+            <a href="products.html">水准仪</a>
+            <a href="products.html">测绘配件</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>联系方式</h4>
+          <div style="font-size:0.875rem;line-height:2;">
+            <p>电话：19112456894</p>
+            <p>邮箱：info@dongweiyihua.com</p>
+            <p>地址：重庆市巴南区东城大道2376号附3号4楼</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 东巍益华 版权所有</span>
+        <span>ICP备案号：黔ICP备XXXXXXXX号</span>
+        <span style="margin-left:16px;">公安备案号：渝公网安备 XXXXXXXXXXXX号</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
