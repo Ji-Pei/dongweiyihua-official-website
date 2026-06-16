@@ -328,138 +328,131 @@ let productData = [
   },
 ];
 
-/* ---- 产品筛选 ---- */
+/* ---- 产品中心（API驱动） ---- */
 function initProductFilter() {
-  let filterForm = document.getElementById('filter-form');
-  let productGrid = document.getElementById('product-grid');
-  let noResults = document.getElementById('no-results');
-  let resultCount = document.getElementById('result-count');
-  let pagination = document.getElementById('pagination');
+  var catTrack = document.getElementById('prodCatTrack');
+  var productSections = document.getElementById('productSections');
+  if (!catTrack || !productSections) return;
 
-  if (!filterForm || !productGrid) return;
+  var allProducts = [];
+  var activeBrand = 'all';
 
-  let itemsPerPage = 6;
-  let currentPage = 1;
-
-  function filterProducts() {
-    let checkedBrands = [];
-    let checkedCategories = [];
-
-    filterForm.querySelectorAll('input[name="brand"]:checked').forEach(function(cb) {
-      checkedBrands.push(cb.value);
-    });
-
-    filterForm.querySelectorAll('input[name="category"]:checked').forEach(function(cb) {
-      checkedCategories.push(cb.value);
-    });
-
-    let minPrice = parseInt(filterForm.querySelector('#price-min').value) || 0;
-    let maxPrice = parseInt(filterForm.querySelector('#price-max').value) || 999999;
-
-    return productData.filter(function(product) {
-      let brandMatch = checkedBrands.length === 0 || checkedBrands.indexOf(product.brand) !== -1;
-      let catMatch = checkedCategories.length === 0 || checkedCategories.indexOf(product.category) !== -1;
-      let priceMatch = product.price >= minPrice && product.price <= maxPrice;
-      return brandMatch && catMatch && priceMatch;
-    });
+  function getCatIcon(name) {
+    var icons = {
+      'RTK测绘仪': '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8 L32 16"/><path d="M20 12 L20 20 L44 20 L44 12"/><rect x="18" y="20" width="28" height="32" rx="4"/><path d="M24 36 L40 36"/><circle cx="32" cy="28" r="3"/></svg>',
+      '全站仪': '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 48 L20 20 L28 12 L36 12 L44 20 L44 48"/><path d="M20 20 L44 20"/><circle cx="32" cy="32" r="6"/><path d="M32 26 L32 20"/></svg>',
+      '工程测量': '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><circle cx="32" cy="24" r="8"/><path d="M32 32 L32 56"/><path d="M24 56 L40 56"/></svg>',
+      '三维智能': '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="16" y="16" width="32" height="36" rx="4"/><circle cx="32" cy="34" r="6"/><path d="M16 22 L48 22"/></svg>',
+      '无人机航测': '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M32 12 L32 20"/><path d="M16 20 L48 20"/><path d="M20 20 L24 28 L40 28 L44 20"/></svg>',
+      '海洋测绘': '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 40 Q16 36 24 40 Q32 44 40 40 Q48 36 56 40"/><path d="M28 32 L28 16 L36 16 L36 32"/></svg>',
+      '测绘配件': '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><circle cx="32" cy="28" r="10"/><path d="M28 48 L28 56"/><path d="M36 48 L36 56"/></svg>'
+    };
+    return icons[name] || icons['测绘配件'];
   }
 
-  function renderProducts(page) {
-    let filtered = filterProducts();
-    let totalPages = Math.ceil(filtered.length / itemsPerPage);
-    let start = (page - 1) * itemsPerPage;
-    let pageItems = filtered.slice(start, start + itemsPerPage);
-
-    // 更新数量
-    if (resultCount) {
-      resultCount.textContent = '共 ' + filtered.length + ' 个产品';
-    }
-
-    // 清空
-    productGrid.innerHTML = '';
-
-    if (pageItems.length === 0) {
-      if (noResults) noResults.style.display = 'block';
-      if (pagination) pagination.style.display = 'none';
-      productGrid.innerHTML = '';
-      return;
-    }
-
-    if (noResults) noResults.style.display = 'none';
-
-    pageItems.forEach(function(product) {
-      let card = document.createElement('a');
-      card.className = 'product-card';
-      card.href = 'product-detail.html?id=' + product.id;
-      card.innerHTML =
-        '<div class="product-card-img" style="background:#f5f5f5;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:0.75rem;">产品图片</div>' +
-        '<div class="product-card-body">' +
-          '<span class="brand-tag brand-tag-sm">' + product.brand + '</span>' +
-          '<h4>' + product.name + '</h4>' +
-          '<p class="product-model">' + product.model + '</p>' +
-        '</div>';
-      productGrid.appendChild(card);
+  // 1. 加载分类并渲染图标条
+  fetch(API_BASE + '/api/category')
+    .then(function(r){return r.json();})
+    .then(function(res){
+      var cats = res.data || [];
+      catTrack.innerHTML = '';
+      cats.forEach(function(c){
+        var card = document.createElement('a');
+        card.className = 'category-card';
+        card.href = '#cat-' + c.id;
+        card.setAttribute('data-cat-id', c.id);
+        card.innerHTML = '<div class="category-icon">' + getCatIcon(c.cate_name) + '</div><h4>' + c.cate_name + '</h4>';
+        card.addEventListener('click', function(e){
+          e.preventDefault();
+          var target = document.getElementById('cat-' + c.id);
+          if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+          // 高亮当前
+          catTrack.querySelectorAll('.category-card').forEach(function(ca){ca.classList.remove('active');});
+          card.classList.add('active');
+        });
+        catTrack.appendChild(card);
+      });
+    })
+    .catch(function(){
+      catTrack.innerHTML = '<p style="color:#999;padding:20px;">加载分类失败</p>';
     });
 
-    // 分页
-    if (pagination) {
-      if (totalPages <= 1) {
-        pagination.style.display = 'none';
-      } else {
-        pagination.style.display = 'flex';
-        renderPagination(totalPages, page);
-      }
-    }
-  }
+  // 2. 加载产品
+  fetch(API_BASE + '/api/pc/get_products')
+    .then(function(r){return r.json();})
+    .then(function(res){
+      allProducts = (res.data && res.data.list) || [];
+      if(allProducts.length === 0){ productSections.innerHTML='<p style="text-align:center;color:#999;padding:40px;">暂无产品</p>'; return; }
+      renderProductSections();
+    })
+    .catch(function(){
+      productSections.innerHTML = '<p style="text-align:center;color:#999;padding:40px;">加载产品失败</p>';
+    });
 
-  function renderPagination(totalPages, currentPage) {
-    let html = '';
+  function renderProductSections() {
+    // 按分类分组
+    var groups = {};
+    allProducts.forEach(function(p){
+      var cat = p.cate_name || p.category || '其他';
+      if(!groups[cat]) groups[cat] = [];
+      groups[cat].push(p);
+    });
 
-    if (currentPage > 1) {
-      html += '<a href="#" data-page="' + (currentPage - 1) + '">&laquo;</a>';
-    }
+    var filtered = activeBrand === 'all' ? allProducts : allProducts.filter(function(p){
+      var b = (p.store_name || p.name || '').toLowerCase();
+      return p.brand === activeBrand || b.indexOf(activeBrand.toLowerCase()) !== -1;
+    });
 
-    for (let i = 1; i <= totalPages; i++) {
-      if (i === currentPage) {
-        html += '<a href="#" class="active" data-page="' + i + '">' + i + '</a>';
-      } else {
-        html += '<a href="#" data-page="' + i + '">' + i + '</a>';
-      }
-    }
+    var groups2 = {};
+    filtered.forEach(function(p){
+      var cat = p.cate_name || p.category || '其他';
+      if(!groups2[cat]) groups2[cat] = [];
+      groups2[cat].push(p);
+    });
 
-    if (currentPage < totalPages) {
-      html += '<a href="#" data-page="' + (currentPage + 1) + '">&raquo;</a>';
-    }
-
-    pagination.innerHTML = html;
-
-    pagination.querySelectorAll('a').forEach(function(link) {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        let page = parseInt(this.getAttribute('data-page'));
-        if (page) {
-          currentPage = page;
-          renderProducts(currentPage);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+    var html = '';
+    for(var cat in groups2){
+      var products = groups2[cat];
+      var firstId = allProducts.indexOf(products[0]);
+      html += '<div class="prod-cat-section" id="cat-' + (firstId + 1) + '">';
+      html += '<div class="prod-cat-header"><h2>' + cat + '</h2><span>共' + products.length + '款</span></div>';
+      html += '<div class="product-grid">';
+      products.forEach(function(p){
+        var imgSrc = p.image || p.img || '';
+        var imgHtml = imgSrc ? '<img src="'+imgSrc+'" alt="'+p.store_name+'" loading="lazy">' : '<span>暂无图片</span>';
+        html += '<a href="product-detail.html?id='+(p.id||'')+'" class="product-card">';
+        html += '<div class="product-card-img">'+imgHtml+'</div>';
+        html += '<div class="product-card-body"><h4>'+(p.store_name||p.name||'')+'</h4>';
+        html += '<p class="product-model">'+(p.store_info||p.model||'')+'</p>';
+        if(p.price){
+          html += '<p class="product-price">&yen;' + p.price + '</p>';
         }
+        html += '</div></a>';
+      });
+      html += '</div></div>';
+    }
+    productSections.innerHTML = html || '<p style="text-align:center;color:#999;padding:40px;">无匹配产品</p>';
+  }
+
+  // 3. 筛选标签事件
+  var filterBar = document.getElementById('filterBar');
+  if(filterBar){
+    filterBar.querySelectorAll('.filter-tag').forEach(function(tag){
+      tag.addEventListener('click', function(){
+        filterBar.querySelectorAll('.filter-tag').forEach(function(t){t.classList.remove('active');});
+        tag.classList.add('active');
+        activeBrand = tag.getAttribute('data-brand');
+        renderProductSections();
       });
     });
   }
 
-  // 筛选事件
-  filterForm.querySelectorAll('input').forEach(function(input) {
-    input.addEventListener('change', function() {
-      currentPage = 1;
-      renderProducts(currentPage);
-    });
-    input.addEventListener('input', function() {
-      currentPage = 1;
-      renderProducts(currentPage);
-    });
-  });
-
-  // 初始渲染
-  renderProducts(1);
+  // 4. 拖动滚动分类条
+  var isDown = false, startX = 0, scrollLeft0 = 0;
+  catTrack.addEventListener('mousedown', function(e){ isDown=true; catTrack.classList.add('dragging'); startX=e.pageX-catTrack.offsetLeft; scrollLeft0=catTrack.scrollLeft; });
+  catTrack.addEventListener('mouseleave', function(){ isDown=false; catTrack.classList.remove('dragging'); });
+  catTrack.addEventListener('mouseup', function(){ isDown=false; catTrack.classList.remove('dragging'); });
+  catTrack.addEventListener('mousemove', function(e){ if(!isDown) return; e.preventDefault(); var x=e.pageX-catTrack.offsetLeft; catTrack.scrollLeft=scrollLeft0-(x-startX)*1.5; });
 }
 
 /* ---- 购物车 ---- */
