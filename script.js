@@ -430,20 +430,13 @@ function initProductFilter() {
       groups[cat].push(p);
     });
 
-    // 按分类顺序排序（ordered先，其余的放后面）
-    var allCats = Object.keys(groups);
-    allCats.sort(function(a, b){
-      var ai = catOrder.indexOf(a), bi = catOrder.indexOf(b);
-      if(ai >= 0 && bi >= 0) return ai - bi;
-      if(ai >= 0) return -1;
-      if(bi >= 0) return 1;
-      return a.localeCompare(b);
-    });
-
+    // 按API分类顺序遍历（所有分类都展示，没产品也显示区块）
     var html = '';
-    allCats.forEach(function(cat, idx){
-      var products = groups[cat];
-      var catId = 'cat-' + (idx + 1);
+    var sectionIdx = 0;
+    var orderedCats = catOrder.length > 0 ? catOrder : Object.keys(groups);
+    orderedCats.forEach(function(cat){
+      var products = groups[cat] || [];
+      var catId = 'cat-' + (++sectionIdx);
       var banner = catBanners[cat] || '';
 
       html += '<div class="prod-cat-section" id="' + catId + '">';
@@ -458,9 +451,13 @@ function initProductFilter() {
       }
       html += '</div>';
       // 上排3商品
-      products.slice(0, 3).forEach(function(p){ html += renderProductCard(p); });
-      // 下排5商品
-      products.slice(3, 8).forEach(function(p){ html += renderProductCard(p); });
+      if(products.length > 0){
+        products.slice(0, 3).forEach(function(p){ html += renderProductCard(p); });
+        // 下排5商品
+        products.slice(3, 8).forEach(function(p){ html += renderProductCard(p); });
+      } else {
+        html += '<div class="prod-cat-empty">暂无产品，敬请期待</div>';
+      }
       html += '</div></div>';
     });
     productSections.innerHTML = html || '<p style="text-align:center;color:#999;padding:40px;">无匹配产品</p>';
