@@ -5,6 +5,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   initNavigation();
   initHeroSlider();
+  initCategoryScroll();
   initScrollEffects();
   initProductFilter();
   initCart();
@@ -48,79 +49,158 @@ function initNavigation() {
   });
 }
 
-/* ---- Hero轮播 ---- */
+/* ---- 全局配置 ---- */
+var API_BASE = 'http://101.43.99.228';
+
+/* ---- Hero轮播（CRMEB API） ---- */
 function initHeroSlider() {
-  let slides = document.querySelectorAll('.hero-slide');
-  let dots = document.querySelectorAll('.hero-dot');
+  var slider = document.getElementById('heroSlider');
+  var dotsEl = document.getElementById('heroDots');
+  if (!slider || !dotsEl) return;
 
-  if (slides.length === 0) return;
+  var slides = [];
+  var dots = [];
+  var current = 0;
+  var timer = null;
 
-  let currentSlide = 0;
-  let slideInterval = null;
-  let intervalTime = 3000;
-
-  function goToSlide(index) {
-    slides[currentSlide].classList.remove('active');
-    if (dots.length > 0) dots[currentSlide].classList.remove('active');
-
-    currentSlide = index;
-    if (currentSlide >= slides.length) currentSlide = 0;
-    if (currentSlide < 0) currentSlide = slides.length - 1;
-
-    slides[currentSlide].classList.add('active');
-    if (dots.length > 0) dots[currentSlide].classList.add('active');
-  }
-
-  function startAutoPlay() {
-    stopAutoPlay();
-    slideInterval = setInterval(function() {
-      goToSlide(currentSlide + 1);
-    }, intervalTime);
-  }
-
-  function stopAutoPlay() {
-    if (slideInterval) {
-      clearInterval(slideInterval);
-      slideInterval = null;
-    }
-  }
-
-  // 指示点点击
-  if (dots.length > 0) {
-    dots.forEach(function(dot, i) {
-      dot.addEventListener('click', function() {
-        goToSlide(i);
-        startAutoPlay();
-      });
+  // 从CRMEB API获取轮播图数据
+  fetch(API_BASE + '/api/pc/get_banner')
+    .then(function (r) { return r.json(); })
+    .then(function (res) {
+      var list = (res.data && res.data.list) || [];
+      if (list.length === 0) return;
+      renderSlides(list);
+      start();
+    })
+    .catch(function () {
+      // API失败时用内置默认图
+      renderSlides([{ image: 'images/banner_1.jpg' }, { image: 'images/banner_2.jpg' }]);
+      start();
     });
+
+  function renderSlides(list) {
+    list.forEach(function (item, i) {
+      var slide = document.createElement('div');
+      slide.className = 'hero-slide' + (i === 0 ? ' active' : '');
+      var img = document.createElement('img');
+      img.src = item.image || item.img;
+      img.alt = item.title || '';
+      img.className = 'hero-image';
+      slide.appendChild(img);
+
+      // 包裹点击跳转链接
+      if (item.url) {
+        var link = document.createElement('a');
+        link.href = item.url;
+        link.target = '_blank';
+        link.className = 'hero-link';
+        img.parentNode.insertBefore(link, img);
+        link.appendChild(img);
+      }
+      slider.insertBefore(slide, dotsEl);
+
+      var dot = document.createElement('span');
+      dot.className = 'hero-dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', function () { goTo(i); start(); });
+      dotsEl.appendChild(dot);
+
+      slides.push(slide);
+      dots.push(dot);
+    });
+  }
+
+  function goTo(index) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (index + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+
+  function start() {
+    stop();
+    timer = setInterval(function () { goTo(current + 1); }, 3000);
+  }
+
+  function stop() {
+    if (timer) { clearInterval(timer); timer = null; }
   }
 
   // 触摸滑动
-  let slider = document.querySelector('.hero-slider');
-  if (slider) {
-    let touchStartX = 0;
-    let touchEndX = 0;
+  var startX = 0;
+  slider.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; stop(); });
+  slider.addEventListener('touchend', function (e) {
+    var endX = e.changedTouches[0].clientX;
+    if (startX - endX > 40) goTo(current + 1);
+    if (endX - startX > 40) goTo(current - 1);
+    start();
+  });
+}
 
-    slider.addEventListener('touchstart', function(e) {
-      touchStartX = e.changedTouches[0].screenX;
-      stopAutoPlay();
-    });
+/* ---- 产品分类横向滚动（CRMEB API） ---- */
+function initCategoryScroll() {
+  var track = document.getElementById('catScrollTrack');
+  if (!track) return;
 
-    slider.addEventListener('touchend', function(e) {
-      touchEndX = e.changedTouches[0].screenX;
-      if (touchStartX - touchEndX > 50) {
-        goToSlide(currentSlide + 1);
-      } else if (touchEndX - touchStartX > 50) {
-        goToSlide(currentSlide - 1);
-      }
-      startAutoPlay();
-    });
+  // 精美图标SVG（红色hover通过CSS stroke变色实现）
+  function getCategoryIcon(name) {
+    var icons = {
+      'RTK测绘仪': '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8 L32 16"/><path d="M20 12 L20 20 L44 20 L44 12"/><rect x="18" y="20" width="28" height="32" rx="4"/><path d="M24 36 L40 36"/><circle cx="32" cy="28" r="3"/><path d="M18 44 L14 48"/><path d="M46 44 L50 48"/></svg>',
+      
+      '全站仪': '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 48 L20 20 L28 12 L36 12 L44 20 L44 48"/><path d="M20 20 L44 20"/><circle cx="32" cy="32" r="6"/><path d="M32 26 L32 20"/><path d="M28 16 L36 16"/><path d="M24 48 L18 54"/><path d="M40 48 L46 54"/></svg>',
+      
+      '工程测量': '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8 L32 16"/><circle cx="32" cy="24" r="8"/><path d="M32 32 L32 56"/><path d="M24 56 L40 56"/><path d="M16 24 L8 20"/><path d="M48 24 L56 20"/></svg>',
+      
+      '三维智能': '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="16" width="32" height="36" rx="4"/><circle cx="32" cy="34" r="6"/><path d="M16 22 L48 22"/><path d="M32 8 L32 16"/><path d="M24 8 L40 8"/></svg>',
+      
+      '无人机航测': '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 12 L32 20"/><path d="M16 20 L48 20"/><path d="M20 20 L24 28 L40 28 L44 20"/><path d="M28 28 L28 40"/><path d="M36 28 L36 40"/><path d="M24 40 L40 40"/><circle cx="32" cy="24" r="2"/><path d="M8 24 L12 24"/><path d="M52 24 L56 24"/></svg>',
+      
+      '海洋测绘': '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 40 Q16 36 24 40 Q32 44 40 40 Q48 36 56 40"/><path d="M8 48 Q16 44 24 48 Q32 52 40 48 Q48 44 56 48"/><path d="M28 32 L28 16 L36 16 L36 32"/><path d="M32 8 L32 16"/><circle cx="32" cy="12" r="2"/><path d="M24 24 L40 24"/></svg>',
+      
+      '测绘配件': '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="28" r="10"/><path d="M22 28 L18 28"/><path d="M46 28 L42 28"/><path d="M28 48 L28 56"/><path d="M36 48 L36 56"/><path d="M22 56 L42 56"/></svg>'
+    };
+    return icons[name] || icons['测绘配件'];
   }
 
-  // 启动
-  slides[currentSlide].classList.add('active');
-  if (dots.length > 0) dots[currentSlide].classList.add('active');
-  startAutoPlay();
+  function renderCard(cate_name) {
+    var card = document.createElement('a');
+    card.className = 'category-card';
+    card.href = 'products.html?category=' + encodeURIComponent(cate_name);
+    card.innerHTML = '<div class="category-icon">' + getCategoryIcon(cate_name) + '</div><h4>' + cate_name + '</h4>';
+    track.appendChild(card);
+  }
+
+  // API 加载（仅取分类名称）
+  fetch(API_BASE + '/api/category')
+    .then(function (r) { return r.json(); })
+    .then(function (res) {
+      var cats = (res.data) || [];
+      if (cats.length === 0) return;
+      track.innerHTML = '';
+      cats.forEach(function (c) { renderCard(c.cate_name); });
+    })
+    .catch(function () {
+      var defaults = ['RTK测绘仪','全站仪','工程测量','三维智能','无人机航测','海洋测绘','测绘配件'];
+      track.innerHTML = '';
+      defaults.forEach(function (n) { renderCard(n); });
+    });
+
+  // 鼠标拖动滚动
+  var isDown = false, startX = 0, scrollLeft0 = 0;
+  track.addEventListener('mousedown', function (e) {
+    isDown = true;
+    track.classList.add('dragging');
+    startX = e.pageX - track.offsetLeft;
+    scrollLeft0 = track.scrollLeft;
+  });
+  track.addEventListener('mouseleave', function () { isDown = false; track.classList.remove('dragging'); });
+  track.addEventListener('mouseup', function () { isDown = false; track.classList.remove('dragging'); });
+  track.addEventListener('mousemove', function (e) {
+    if (!isDown) return;
+    e.preventDefault();
+    var x = e.pageX - track.offsetLeft;
+    track.scrollLeft = scrollLeft0 - (x - startX) * 1.5;
+  });
 }
 
 /* ---- 滚动效果 ---- */
