@@ -350,17 +350,23 @@ function initProductFilter() {
     return icons[name] || icons['测绘配件'];
   }
 
+  // 变量声明
+  var catBanners = {};
+  var catOrder = [];
+  var catIdToName = {};
+
   // 1. 加载分类并渲染图标条
   fetch(API_BASE + '/api/category')
     .then(function(r){return r.json();})
     .then(function(res){
       var cats = res.data || [];
       catTrack.innerHTML = '';
-      catOrder = []; // 重置顺序
+      catOrder = [];
+      catIdToName = {};
       cats.forEach(function(c, idx){
-        // 存储分类大图和顺序
         catOrder.push(c.cate_name);
         catBanners[c.cate_name] = c.pic || '';
+        catIdToName[String(c.id)] = c.cate_name;
         var card = document.createElement('a');
         card.className = 'category-card';
         card.href = '#cat-' + (idx + 1);
@@ -379,22 +385,23 @@ function initProductFilter() {
       catTrack.innerHTML = '<p style="color:#999;padding:20px;">加载分类失败</p>';
     });
 
-  // 2. 加载产品（API优先，失败降级到本地数据）
+  // 2. 加载产品（通过cate_id映射分类名）
   fetch(API_BASE + '/api/pc/get_products')
     .then(function(r){return r.json();})
     .then(function(res){
-      var list = (res.data && res.data.list) || (res.data && res.data) || [];
+      var list = (res.data && res.data.list) || [];
       if (list.length > 0) {
-        // 统一字段名
         allProducts = list.map(function(p){
+          var cateId = String(p.cate_id || '').split(',')[0].trim();
+          var cateName = catIdToName[cateId] || '其他';
           return {
             id: p.id,
-            store_name: p.store_name || p.name || '',
-            store_info: p.store_info || p.info || '',
-            image: p.image || p.img || '',
+            store_name: p.store_name || '',
+            store_info: p.store_info || '',
+            image: p.image || '',
             price: p.price || 0,
-            cate_name: p.cate_name || p.category_name || p.category || '其他',
-            brand: p.brand || ''
+            cate_name: cateName,
+            brand: ''
           };
         });
       }
@@ -402,43 +409,43 @@ function initProductFilter() {
       renderProductSections();
     })
     .catch(function(){
-      // API失败，降级到本地数据
       allProducts = productData;
       renderProductSections();
     });
 
-  // 存储分类大图（从category API获取）
-  var catBanners = {};
-  var catOrder = []; // 保持API返回的顺序
-
+  // 3. 渲染产品区块
   function renderProductSections() {
     var filtered = activeBrand === 'all' ? allProducts : allProducts.filter(function(p){
-      var b = (p.store_name || p.name || '').toLowerCase();
+      var b = (p.store_name || '').toLowerCase();
       return p.brand === activeBrand || b.indexOf(activeBrand.toLowerCase()) !== -1;
     });
 
     var groups = {};
     filtered.forEach(function(p){
-      var cat = p.cate_name || p.category || '其他';
+      var cat = p.cate_name || '其他';
       if (!groups[cat]) groups[cat] = [];
       groups[cat].push(p);
     });
 
+    // 按分类顺序排序（ordered先，其余的放后面）
+    var allCats = Object.keys(groups);
+    allCats.sort(function(a, b){
+      var ai = catOrder.indexOf(a), bi = catOrder.indexOf(b);
+      if(ai >= 0 && bi >= 0) return ai - bi;
+      if(ai >= 0) return -1;
+      if(bi >= 0) return 1;
+      return a.localeCompare(b);
+    });
+
     var html = '';
-    // 按API返回的分类顺序渲染；若分类尚未加载完则按对象key排序
-    var catKeys = catOrder.length > 0 ? catOrder.filter(function(c){ return groups[c]; }) : Object.keys(groups).sort();
-    catKeys.forEach(function(cat, idx){
-      if (!groups[cat]) return;
+    allCats.forEach(function(cat, idx){
       var products = groups[cat];
       var catId = 'cat-' + (idx + 1);
       var banner = catBanners[cat] || '';
-      
+
       html += '<div class="prod-cat-section" id="' + catId + '">';
       html += '<div class="prod-cat-header"><h2>' + cat + '</h2><span>共' + products.length + '款</span></div>';
-      
-      // 5列混合网格：第一行(大图2列+3商品)，第二行(5商品)
       html += '<div class="prod-mixed-grid">';
-      
       // 大图（占2列）
       html += '<div class="prod-cat-bigimg">';
       if (banner) {
@@ -447,22 +454,16 @@ function initProductFilter() {
         html += '<div style="width:100%;height:100%;background:#f5f5f5;display:flex;align-items:center;justify-content:center;color:#bbb;">' + cat + '</div>';
       }
       html += '</div>';
-      
-      // 前3个商品（第1行右侧3列）
-      products.slice(0, 3).forEach(function(p){
-        html += renderProductCard(p);
-      });
-      
-      // 接下来5个商品（第2行，5列）
-      products.slice(3, 8).forEach(function(p){
-        html += renderProductCard(p);
-      });
-      
+      // 上排3商品
+      products.slice(0, 3).forEach(function(p){ html += renderProductCard(p); });
+      // 下排5商品
+      products.slice(3, 8).forEach(function(p){ html += renderProductCard(p); });
       html += '</div></div>';
     });
     productSections.innerHTML = html || '<p style="text-align:center;color:#999;padding:40px;">无匹配产品</p>';
   }
 
+  // 4. 产品卡片渲染
   function renderProductCard(p) {
     var imgSrc = p.image || p.img || '';
     var imgHtml = imgSrc ? '<img src="'+imgSrc+'" alt="'+(p.store_name||'')+'" loading="lazy">' : '<span style="color:#bbb;font-size:0.75rem;">暂无图片</span>';
