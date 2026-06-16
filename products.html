@@ -53,7 +53,7 @@
   </nav>
 
   <!-- 页面Hero -->
-  <section class="page-hero">
+  <section class="page-hero products-hero">
     <div class="container">
       <h1>产品中心</h1>
       <div class="breadcrumb">
@@ -62,57 +62,49 @@
     </div>
   </section>
 
-  <!-- 产品内容区 -->
-  <section class="section">
+  <!-- 分类图标（API加载） -->
+  <section class="section" style="padding-bottom:0;">
     <div class="container">
-      <div class="products-layout">
-        <!-- 筛选面板 -->
-        <aside class="filter-panel" id="filter-form">
-          <h4 style="margin-bottom:16px;font-size:1rem;">筛选条件</h4>
-
-          <div class="filter-group">
-            <h4>品牌</h4>
-            <label><input type="checkbox" name="brand" value="华测"> 华测导航</label>
-            <label><input type="checkbox" name="brand" value="南方测绘"> 南方测绘</label>
-            <label><input type="checkbox" name="brand" value="北斗中移"> 北斗中移</label>
-            <label><input type="checkbox" name="brand" value="科力达"> 科力达</label>
-          </div>
-
-          <div class="filter-group">
-            <h4>产品分类</h4>
-            <label><input type="checkbox" name="category" value="RTK测量系统"> RTK测量系统</label>
-            <label><input type="checkbox" name="category" value="全站仪"> 全站仪</label>
-            <label><input type="checkbox" name="category" value="无人机航测系统"> 无人机航测系统</label>
-            <label><input type="checkbox" name="category" value="水准仪"> 水准仪</label>
-            <label><input type="checkbox" name="category" value="测绘配件"> 测绘配件</label>
-          </div>
-
-          <div class="filter-group">
-            <h4>价格区间</h4>
-            <div class="filter-price-row">
-              <input type="number" id="price-min" placeholder="最低价" min="0">
-              <span>-</span>
-              <input type="number" id="price-max" placeholder="最高价" min="0">
-            </div>
-          </div>
-        </aside>
-
-        <!-- 产品网格 -->
-        <div>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
-            <span id="result-count" style="color:#757575;font-size:0.875rem;">共 8 个产品</span>
-          </div>
-
-          <div class="product-grid" id="product-grid"></div>
-
-          <div id="no-results" style="display:none;text-align:center;padding:64px 0;color:#757575;">
-            <p style="font-size:1.125rem;margin-bottom:8px;">没有找到匹配的产品</p>
-            <p style="font-size:0.875rem;">请调整筛选条件重新搜索</p>
-          </div>
-
-          <div class="pagination" id="pagination"></div>
+      <div class="cat-scroll-wrap" id="prodCatWrap">
+        <div class="cat-scroll-track" id="prodCatTrack">
+          <!-- 由JS动态渲染 -->
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- 品牌筛选（横排标签） -->
+  <section class="section" style="padding-top:24px;">
+    <div class="container">
+      <h3 class="prod-section-title">筛选条件</h3>
+      <div class="filter-bar" id="filterBar">
+        <span class="filter-label">品牌：</span>
+        <button class="filter-tag active" data-brand="all">全部</button>
+        <button class="filter-tag" data-brand="华测">华测</button>
+        <button class="filter-tag" data-brand="南方测绘">南方</button>
+        <button class="filter-tag" data-brand="科力达">科力达</button>
+        <button class="filter-tag" data-brand="三鼎">三鼎</button>
+        <button class="filter-tag" data-brand="瑞得">瑞得</button>
+        <button class="filter-tag" data-brand="天宇">天宇</button>
+        <button class="filter-tag" data-brand="北斗中移">北斗中移</button>
+      </div>
+      <div class="filter-bar" style="margin-top:8px;">
+        <span class="filter-label">排序：</span>
+        <button class="filter-tag active" data-sort="default">默认</button>
+        <button class="filter-tag" data-sort="price-asc">价格从低到高</button>
+        <button class="filter-tag" data-sort="price-desc">价格从高到低</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 按分类的产品区块（API动态渲染） -->
+  <section class="section" style="padding-top:0;">
+    <div class="container" id="productSections">
+      <!-- 由JS动态渲染 -->
+    </div>
+    <div id="no-results" style="display:none;text-align:center;padding:48px 0;color:#757575;">
+      <p style="font-size:1.125rem;margin-bottom:8px;">没有找到匹配的产品</p>
+      <p style="font-size:0.875rem;">请调整筛选条件重新搜索</p>
     </div>
   </section>
 
