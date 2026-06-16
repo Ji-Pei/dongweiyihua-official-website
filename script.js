@@ -400,6 +400,9 @@ function initProductFilter() {
             store_info: p.store_info || '',
             image: p.image || '',
             price: p.price || 0,
+            ot_price: p.ot_price || '',
+            sales: p.sales || 0,
+            star: p.star || '',
             cate_name: cateName,
             brand: ''
           };
@@ -471,8 +474,20 @@ function initProductFilter() {
     html += '<div class="product-card-img">'+imgHtml+'</div>';
     html += '<div class="product-card-body">';
     html += '<h4>'+(p.store_name||p.name||'')+'</h4>';
-    html += '<p class="product-model">'+(p.store_info||p.model||'')+'</p>';
-    if(p.price){ html += '<p class="product-price">&yen;' + p.price + '</p>'; }
+    // 价格行
+    html += '<div class="product-price-row">';
+    html += '<span class="product-price">&yen;' + (p.price || 0) + '</span>';
+    if(p.ot_price && p.ot_price != p.price){
+      html += '<span class="product-ot-price">&yen;' + p.ot_price + '</span>';
+    }
+    html += '</div>';
+    // 销量 + 评分
+    html += '<div class="product-meta">';
+    if(p.sales){ html += '<span>已售' + p.sales + '</span>'; }
+    if(p.star){
+      html += '<span class="product-star">★ ' + p.star + '</span>';
+    }
+    html += '</div>';
     html += '</div></a>';
     return html;
   }
