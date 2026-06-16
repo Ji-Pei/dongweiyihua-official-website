@@ -1315,7 +1315,91 @@ h4 { font-size: 1.25rem; }    /* 20px */
   margin-bottom: var(--space-2);
 }
 
-/* ---- 产品筛选页 ---- */
+/* ---- 产品中心新样式 ---- */
+.products-hero {
+  background: var(--dhwy-dark);
+  padding: 100px 0 60px;
+}
+
+/* 品牌筛选横排标签 */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--dhwy-text-dark);
+  white-space: nowrap;
+}
+
+.filter-tag {
+  padding: 6px 16px;
+  border: 1px solid var(--dhwy-border-light);
+  border-radius: 20px;
+  font-size: 0.8125rem;
+  color: var(--dhwy-text-gray);
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-tag:hover {
+  border-color: var(--dhwy-red);
+  color: var(--dhwy-red);
+}
+
+.filter-tag.active {
+  background: var(--dhwy-red);
+  border-color: var(--dhwy-red);
+  color: var(--dhwy-white);
+}
+
+/* 分类区块标题 */
+.prod-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--dhwy-text-dark);
+}
+
+/* 分类产品区块 */
+.prod-cat-section {
+  margin-bottom: 48px;
+}
+
+.prod-cat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--dhwy-red);
+}
+
+.prod-cat-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--dhwy-text-dark);
+  margin: 0;
+}
+
+.prod-cat-header span {
+  font-size: 0.875rem;
+  color: var(--dhwy-text-gray);
+}
+
+.prod-cat-header a {
+  margin-left: auto;
+  font-size: 0.8125rem;
+  color: var(--dhwy-red);
+  text-decoration: none;
+}
+
+/* ---- 产品筛选页（旧版保留兼容） ---- */
 .products-layout {
   display: grid;
   grid-template-columns: 260px 1fr;
