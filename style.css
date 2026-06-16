@@ -855,7 +855,7 @@ h4 { font-size: 1.25rem; }    /* 20px */
 .product-meta {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
   font-size: 0.75rem;
   color: #999;
 }
@@ -1468,6 +1468,17 @@ h4 { font-size: 1.25rem; }    /* 20px */
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* 无产品占位 */
+.prod-cat-empty {
+  grid-column: 3 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #bbb;
+  font-size: 0.875rem;
+  min-height: 100px;
 }
 
 /* 占位 */
