@@ -1425,12 +1425,14 @@ h4 { font-size: 1.25rem; }    /* 20px */
   gap: 16px;
 }
 
-/* 分类大图：第1列第1行，与产品卡片同高 */
+/* 分类大图：占2列，与产品卡片同高(468*340比例) */
 .prod-cat-bigimg {
+  grid-column: span 2;
   border-radius: 8px;
   overflow: hidden;
   background: #f5f5f5;
   min-height: 300px;
+  aspect-ratio: 468 / 340;
 }
 
 .prod-cat-bigimg img {
@@ -1440,11 +1442,6 @@ h4 { font-size: 1.25rem; }    /* 20px */
   display: block;
 }
 
-/* 第一行第5列空占位（用于保证只有3个商品在第一行） */
-.prod-grid-empty {
-  visibility: hidden;
-}
-
 /* 占位 */
 .product-card-placeholder {
   display: none;
@@ -1452,10 +1449,11 @@ h4 { font-size: 1.25rem; }    /* 20px */
 
 @media (max-width: 1024px) {
   .prod-mixed-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
-  .prod-grid-empty {
-    display: none;
+  .prod-cat-bigimg {
+    aspect-ratio: auto;
+    min-height: 250px;
   }
 }
 
@@ -1464,8 +1462,8 @@ h4 { font-size: 1.25rem; }    /* 20px */
     grid-template-columns: repeat(2, 1fr);
   }
   .prod-cat-bigimg {
-    grid-row: auto;
     grid-column: 1 / -1;
+    aspect-ratio: auto;
     min-height: 200px;
   }
 }
