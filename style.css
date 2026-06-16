@@ -1376,34 +1376,90 @@ h4 { font-size: 1.25rem; }    /* 20px */
 /* 分类产品区块 */
 .prod-cat-section {
   margin-bottom: 48px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
 .prod-cat-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid var(--dhwy-red);
+  padding: 20px 24px;
+  border-bottom: 1px solid #f0f0f0;
+  background: #fafafa;
 }
 
-.prod-cat-header h2 {
-  font-size: 1.25rem;
+.prod-cat-banner {
+  width: 200px;
+  height: 120px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-right: 20px;
+  flex-shrink: 0;
+  background: #f0f0f0;
+}
+
+.prod-cat-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.prod-cat-info {
+  flex: 1;
+}
+
+.prod-cat-info h2 {
+  font-size: 1.375rem;
   font-weight: 700;
   color: var(--dhwy-text-dark);
-  margin: 0;
+  margin: 0 0 8px 0;
 }
 
-.prod-cat-header span {
+.prod-cat-info span {
   font-size: 0.875rem;
   color: var(--dhwy-text-gray);
 }
 
-.prod-cat-header a {
+.prod-cat-more {
   margin-left: auto;
-  font-size: 0.8125rem;
-  color: var(--dhwy-red);
+  padding: 8px 20px;
+  border: 1px solid var(--dhwy-border-light);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  color: var(--dhwy-text-gray);
   text-decoration: none;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.prod-cat-more:hover {
+  border-color: var(--dhwy-red);
+  color: var(--dhwy-red);
+}
+
+.prod-cat-more::after {
+  content: '\203A';
+  font-size: 1.125rem;
+}
+
+.prod-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 24px;
+}
+
+@media (max-width: 1024px) {
+  .prod-cat-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .prod-cat-grid { grid-template-columns: repeat(2, 1fr); padding: 16px; }
+  .prod-cat-banner { width: 120px; height: 80px; }
 }
 
 /* ---- 产品筛选页（旧版保留兼容） ---- */
