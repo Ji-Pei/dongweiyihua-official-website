@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <base href="/home/">
   <title>关于我们 - 东巍益华</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -12,28 +11,43 @@
   <nav class="nav">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
-        <span class="logo-icon">东</span><span>东巍益华</span>
+        <span class="logo-icon"><img src="images/logo.png" alt="东巍益华"></span>
+        <span>东巍益华</span>
       </a>
       <div class="nav-links">
-        <a href="index.html">首页</a><a href="products.html">产品中心</a>
-        <a href="solutions.html">解决方案</a><a href="brands.html">授权品牌</a>
-        <a href="about.html" class="active">关于我们</a><a href="news.html">新闻动态</a>
-        <a href="login.html">登录</a>
-        <a href="login.html">登录</a>
+        <a href="index.html">首页</a>
+        <a href="products.html">产品中心</a>
+        <a href="solutions.html">解决方案</a>
+        <a href="brands.html">授权品牌</a>
+        <a href="about.html" class="active">关于我们</a>
+        <a href="news.html">新闻动态</a>
+        <a href="contact.html" class="nav-contact-link">联系我们</a>
       </div>
-      <a href="contact.html" class="btn btn-primary-outline btn-sm nav-cta">联系我们</a>
-      <a href="cart.html" style="color:#fff;margin-left:12px;position:relative;">
-        购物车
-        <span class="cart-count" style="display:none;position:absolute;top:-8px;right:-14px;background:#CC0000;color:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;line-height:18px;text-align:center;">0</span>
-      </a>
-      <div class="hamburger"><span></span><span></span><span></span></div>
+      <div class="nav-actions">
+        <a href="login.html" class="nav-action-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>登录/注册</span>
+        </a>
+        <a href="cart.html" class="nav-action-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="20.5" r="1"/><circle cx="18" cy="20.5" r="1"/><path d="M2.5 2.5h3l2.7 13.3a2 2 0 0 0 2 1.7h7.7a2 2 0 0 0 2-1.7L22 7.5H6"/></svg>
+          <span>购物车</span>
+          <span class="cart-badge" id="cartBadge">(0)</span>
+        </a>
+      </div>
+      <div class="hamburger">
+        <span></span><span></span><span></span>
+      </div>
     </div>
     <div class="mobile-nav">
-      <a href="index.html">首页</a><a href="products.html">产品中心</a>
-      <a href="solutions.html">解决方案</a><a href="brands.html">授权品牌</a>
-      <a href="about.html" class="active">关于我们</a><a href="news.html">新闻动态</a>
-      <a href="login.html">登录</a><a href="login.html">登录</a><a href="cart.html">购物车</a>
-      <a href="contact.html" class="btn btn-primary-outline">联系我们</a>
+      <a href="index.html">首页</a>
+      <a href="products.html">产品中心</a>
+      <a href="solutions.html">解决方案</a>
+      <a href="brands.html">授权品牌</a>
+      <a href="about.html" class="active">关于我们</a>
+      <a href="news.html">新闻动态</a>
+      <a href="contact.html">联系我们</a>
+      <a href="login.html">登录</a>
+      <a href="cart.html">购物车</a>
     </div>
   </nav>
 
@@ -136,35 +150,116 @@
     </div>
   </section>
 
+  <!-- ========== 页脚 ========== -->
   <footer class="footer">
     <div class="container">
-      
-        <div class="footer-col footer-col-brand">
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-            <span style="width:32px;height:32px;background:var(--dhwy-red);border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:0.875rem;">东</span>
-            <h4 style="margin:0;font-size:1rem;">东巍益华</h4>
+      <div class="footer-main">
+        <!-- 左：联系方式 -->
+        <div class="footer-contact">
+          <div class="footer-logo">
+            <img src="images/logo.png" alt="东巍益华" class="footer-logo-img">
+            <img src="images/bswenzi.png" alt="东巍益华" class="footer-logo-text-img">
           </div>
-          <p style="font-size:0.8125rem;">专业测绘仪器销售与服务商，华测、南方测绘、北斗中移、科力达授权代理商。</p>
+          <div class="footer-contact-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>重庆市巴南区东城大道2376号附3号4楼</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            <a href="tel:19112456894">19112456894</a>
+          </div>
+          <div class="footer-contact-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <a href="mailto:info@dongweiyihua.com">info@dongweiyihua.com</a>
+          </div>
         </div>
-        <div class="footer-col">
-          <h4>快速链接</h4>
-          <div class="footer-links footer-links-double">
-            <a href="products.html">产品中心</a><a href="solutions.html">解决方案</a>
-            <a href="brands.html">授权品牌</a><a href="about.html">关于我们</a>
-            <a href="news.html">新闻动态</a><a href="login.html">登录</a>
-            <a href="products.html">RTK测量</a><a href="products.html">全站仪</a>
-            <a href="products.html">无人机航测</a><a href="products.html">水准仪</a>
+
+        <!-- 中：导航链接列 -->
+        <div class="footer-nav">
+          <div class="footer-nav-col">
+            <h4>产品中心</h4>
+            <a href="products.html">测绘仪器</a>
+            <a href="products.html">全站仪</a>
+            <a href="products.html">无人机</a>
+            <a href="products.html">工程测量</a>
             <a href="products.html">测绘配件</a>
           </div>
-        </div>
-        <div class="footer-col footer-col-contact">
-          <h4>联系方式</h4>
-          <p class="footer-contact-compact">19112456894</p>
-          <p class="footer-contact-compact" style="font-size:0.75rem;color:var(--dhwy-text-muted);">重庆市巴南区东城大道2376号附3号4楼</p>
-          <p class="footer-contact-compact" style="font-size:0.75rem;color:var(--dhwy-text-muted);">info@dongweiyihua.com</p>
+          <div class="footer-nav-col">
+            <h4>解决方案</h4>
+            <a href="solutions.html">智能测绘</a>
+            <a href="solutions.html">智慧水利</a>
+            <a href="solutions.html">智慧水文</a>
+            <a href="solutions.html">地灾监测</a>
+            <a href="solutions.html">智慧矿山</a>
+          </div>
+          <div class="footer-nav-col">
+            <h4>服务支持</h4>
+            <a href="contact.html">售后服务</a>
+            <a href="contact.html">技术支持</a>
+            <a href="contact.html">仪器租赁</a>
+            <a href="contact.html">维修校准</a>
+          </div>
+          <div class="footer-nav-col">
+            <h4>东巍益华</h4>
+            <a href="about.html">公司简介</a>
+            <a href="about.html">企业文化</a>
+            <a href="about.html">资质荣誉</a>
+          </div>
+          <div class="footer-nav-col">
+            <h4>资讯中心</h4>
+            <a href="news.html">公司新闻</a>
+            <a href="news.html">行业动态</a>
+            <a href="news.html">技术文章</a>
+          </div>
+          <div class="footer-nav-col">
+            <h4>线上商城</h4>
+            <a href="contact.html">微信商城</a>
+            <a href="contact.html">京东商城</a>
+            <a href="contact.html">淘宝商城</a>
+          </div>
         </div>
 
+        <!-- 右：二维码 -->
+        <div class="footer-side">
+          <div class="footer-qr-row">
+            <div class="footer-qr-item">
+              <img src="images/fuwuhao.jpg" alt="微信服务号" class="footer-qr-img">
+              <p>微信服务号</p>
+            </div>
+            <div class="footer-qr-item">
+              <img src="images/dingyuehao.jpg" alt="微信订阅号" class="footer-qr-img">
+              <p>微信订阅号</p>
+            </div>
+            <div class="footer-qr-item">
+              <img src="images/douyin.jpg" alt="抖音号" class="footer-qr-img">
+              <p>抖音号</p>
+            </div>
+            <div class="footer-qr-item">
+              <img src="images/kefu.jpg" alt="客服微信" class="footer-qr-img">
+              <p>客服微信</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 友情链接（独立行） -->
+      <div class="footer-friend-links">
+        <span>友情链接：</span>
+        <a href="https://www.huace.cn" target="_blank" rel="nofollow">华测导航</a>
+        <a href="https://www.southsurvey.com" target="_blank" rel="nofollow">南方测绘</a>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 东巍益华 版权所有</span>
+        <span>ICP备案号：黔ICP备XXXXXXXX号</span>
+        <span>公安备案号：渝公网安备 XXXXXXXXXXXX号</span>
+      </div>
+    </div>
+  </footer>
 
   <script src="script.js"></script>
+</body>
+</html>
+
 </body>
 </html>
