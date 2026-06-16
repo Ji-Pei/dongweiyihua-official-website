@@ -365,7 +365,7 @@ function initProductFilter() {
       catIdToName = {};
       cats.forEach(function(c, idx){
         catOrder.push(c.cate_name);
-        catBanners[c.cate_name] = c.pic || '';
+        catBanners[c.cate_name] = c.big_pic || c.pic || '';
         catIdToName[String(c.id)] = c.cate_name;
         var card = document.createElement('a');
         card.className = 'category-card';
