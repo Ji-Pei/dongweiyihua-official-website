@@ -357,6 +357,8 @@ function initProductFilter() {
       var cats = res.data || [];
       catTrack.innerHTML = '';
       cats.forEach(function(c, idx){
+        // 存储分类大图
+        catBanners[c.cate_name] = c.pic || '';
         var card = document.createElement('a');
         card.className = 'category-card';
         card.href = '#cat-' + (idx + 1);
@@ -403,6 +405,9 @@ function initProductFilter() {
       renderProductSections();
     });
 
+  // 存储分类大图（从category API获取）
+  var catBanners = {};
+
   function renderProductSections() {
     var filtered = activeBrand === 'all' ? allProducts : allProducts.filter(function(p){
       var b = (p.store_name || p.name || '').toLowerCase();
@@ -412,47 +417,42 @@ function initProductFilter() {
     var groups = {};
     filtered.forEach(function(p){
       var cat = p.cate_name || p.category || '其他';
-      if (!groups[cat]) groups[cat] = { products: [], banner: '' };
-      groups[cat].products.push(p);
-      // 取第一个有图的作为分类banner
-      if (!groups[cat].banner && (p.image || p.img)) {
-        groups[cat].banner = p.image || p.img;
-      }
+      if (!groups[cat]) groups[cat] = [];
+      groups[cat].push(p);
     });
 
     var html = '';
     var idx = 0;
     for (var cat in groups) {
       idx++;
-      var item = groups[cat];
-      var products = item.products;
+      var products = groups[cat];
       var catId = 'cat-' + idx;
+      var banner = catBanners[cat] || '';
+      
       html += '<div class="prod-cat-section" id="' + catId + '">';
       html += '<div class="prod-cat-header"><h2>' + cat + '</h2><span>共' + products.length + '款</span></div>';
       
-      // 混合网格：第一行 大图+3商品，第二行 5商品
+      // 5列混合网格：第一行(大图+3商品)，第二行(5商品)
       html += '<div class="prod-mixed-grid">';
       
-      // 大图（占左侧1格，跨两行高度）
+      // 大图（第1列，跨2行）
       html += '<div class="prod-cat-bigimg">';
-      if (item.banner) {
-        html += '<img src="' + item.banner + '" alt="' + cat + '" loading="lazy">';
+      if (banner) {
+        html += '<img src="' + banner + '" alt="' + cat + '" loading="lazy">';
       } else {
         html += '<div style="width:100%;height:100%;background:#f5f5f5;display:flex;align-items:center;justify-content:center;color:#bbb;">' + cat + '</div>';
       }
       html += '</div>';
       
-      // 前3个商品（第一行右侧）
+      // 前3个商品（第1行，第2-4列）
       products.slice(0, 3).forEach(function(p){
         html += renderProductCard(p);
       });
       
-      // 填充空白（如果不足3个）
-      for (var i = products.length; i < 3; i++) {
-        html += '<div class="product-card-placeholder"></div>';
-      }
+      // 填充到5列（第一行第5列空位）
+      html += '<div class="prod-grid-empty"></div>';
       
-      // 接下来5个商品（第二行）
+      // 接下来5个商品（第2行，第1-5列）- 第1列在大图下方
       products.slice(3, 8).forEach(function(p){
         html += renderProductCard(p);
       });
