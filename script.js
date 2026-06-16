@@ -412,32 +412,67 @@ function initProductFilter() {
     var groups = {};
     filtered.forEach(function(p){
       var cat = p.cate_name || p.category || '其他';
-      if (!groups[cat]) groups[cat] = [];
-      groups[cat].push(p);
+      if (!groups[cat]) groups[cat] = { products: [], banner: '' };
+      groups[cat].products.push(p);
+      // 取第一个有图的作为分类banner
+      if (!groups[cat].banner && (p.image || p.img)) {
+        groups[cat].banner = p.image || p.img;
+      }
     });
 
     var html = '';
     var idx = 0;
     for (var cat in groups) {
       idx++;
-      var products = groups[cat];
+      var item = groups[cat];
+      var products = item.products;
       var catId = 'cat-' + idx;
       html += '<div class="prod-cat-section" id="' + catId + '">';
       html += '<div class="prod-cat-header"><h2>' + cat + '</h2><span>共' + products.length + '款</span></div>';
-      html += '<div class="product-grid">';
-      products.forEach(function(p){
-        var imgSrc = p.image || p.img || '';
-        var imgHtml = imgSrc ? '<img src="'+imgSrc+'" alt="'+(p.store_name||'')+'" loading="lazy">' : '<span style="color:#bbb;font-size:0.75rem;">暂无图片</span>';
-        html += '<a href="product-detail.html?id='+(p.id||'')+'" class="product-card">';
-        html += '<div class="product-card-img">'+imgHtml+'</div>';
-        html += '<div class="product-card-body"><h4>'+(p.store_name||p.name||'')+'</h4>';
-        html += '<p class="product-model">'+(p.store_info||p.model||'')+'</p>';
-        if(p.price){ html += '<p class="product-price">&yen;' + p.price + '</p>'; }
-        html += '</div></a>';
+      
+      // 混合网格：第一行 大图+3商品，第二行 5商品
+      html += '<div class="prod-mixed-grid">';
+      
+      // 大图（占左侧1格，跨两行高度）
+      html += '<div class="prod-cat-bigimg">';
+      if (item.banner) {
+        html += '<img src="' + item.banner + '" alt="' + cat + '" loading="lazy">';
+      } else {
+        html += '<div style="width:100%;height:100%;background:#f5f5f5;display:flex;align-items:center;justify-content:center;color:#bbb;">' + cat + '</div>';
+      }
+      html += '</div>';
+      
+      // 前3个商品（第一行右侧）
+      products.slice(0, 3).forEach(function(p){
+        html += renderProductCard(p);
       });
+      
+      // 填充空白（如果不足3个）
+      for (var i = products.length; i < 3; i++) {
+        html += '<div class="product-card-placeholder"></div>';
+      }
+      
+      // 接下来5个商品（第二行）
+      products.slice(3, 8).forEach(function(p){
+        html += renderProductCard(p);
+      });
+      
       html += '</div></div>';
     }
     productSections.innerHTML = html || '<p style="text-align:center;color:#999;padding:40px;">无匹配产品</p>';
+  }
+
+  function renderProductCard(p) {
+    var imgSrc = p.image || p.img || '';
+    var imgHtml = imgSrc ? '<img src="'+imgSrc+'" alt="'+(p.store_name||'')+'" loading="lazy">' : '<span style="color:#bbb;font-size:0.75rem;">暂无图片</span>';
+    var html = '<a href="product-detail.html?id='+(p.id||'')+'" class="product-card">';
+    html += '<div class="product-card-img">'+imgHtml+'</div>';
+    html += '<div class="product-card-body">';
+    html += '<h4>'+(p.store_name||p.name||'')+'</h4>';
+    html += '<p class="product-model">'+(p.store_info||p.model||'')+'</p>';
+    if(p.price){ html += '<p class="product-price">&yen;' + p.price + '</p>'; }
+    html += '</div></a>';
+    return html;
   }
 
   // 3. 筛选标签事件
