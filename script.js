@@ -356,8 +356,10 @@ function initProductFilter() {
     .then(function(res){
       var cats = res.data || [];
       catTrack.innerHTML = '';
+      catOrder = []; // 重置顺序
       cats.forEach(function(c, idx){
-        // 存储分类大图
+        // 存储分类大图和顺序
+        catOrder.push(c.cate_name);
         catBanners[c.cate_name] = c.pic || '';
         var card = document.createElement('a');
         card.className = 'category-card';
@@ -407,6 +409,7 @@ function initProductFilter() {
 
   // 存储分类大图（从category API获取）
   var catBanners = {};
+  var catOrder = []; // 保持API返回的顺序
 
   function renderProductSections() {
     var filtered = activeBrand === 'all' ? allProducts : allProducts.filter(function(p){
@@ -422,20 +425,21 @@ function initProductFilter() {
     });
 
     var html = '';
-    var idx = 0;
-    for (var cat in groups) {
-      idx++;
+    // 按API返回的分类顺序渲染；若分类尚未加载完则按对象key排序
+    var catKeys = catOrder.length > 0 ? catOrder.filter(function(c){ return groups[c]; }) : Object.keys(groups).sort();
+    catKeys.forEach(function(cat, idx){
+      if (!groups[cat]) return;
       var products = groups[cat];
-      var catId = 'cat-' + idx;
+      var catId = 'cat-' + (idx + 1);
       var banner = catBanners[cat] || '';
       
       html += '<div class="prod-cat-section" id="' + catId + '">';
       html += '<div class="prod-cat-header"><h2>' + cat + '</h2><span>共' + products.length + '款</span></div>';
       
-      // 5列混合网格：第一行(大图+3商品)，第二行(5商品)
+      // 5列混合网格：第一行(大图2列+3商品)，第二行(5商品)
       html += '<div class="prod-mixed-grid">';
       
-      // 大图（第1列，跨2行）
+      // 大图（占2列）
       html += '<div class="prod-cat-bigimg">';
       if (banner) {
         html += '<img src="' + banner + '" alt="' + cat + '" loading="lazy">';
@@ -444,21 +448,18 @@ function initProductFilter() {
       }
       html += '</div>';
       
-      // 前3个商品（第1行，第2-4列）
+      // 前3个商品（第1行右侧3列）
       products.slice(0, 3).forEach(function(p){
         html += renderProductCard(p);
       });
       
-      // 填充到5列（第一行第5列空位）
-      html += '<div class="prod-grid-empty"></div>';
-      
-      // 接下来5个商品（第2行，第1-5列）- 第1列在大图下方
+      // 接下来5个商品（第2行，5列）
       products.slice(3, 8).forEach(function(p){
         html += renderProductCard(p);
       });
       
       html += '</div></div>';
-    }
+    });
     productSections.innerHTML = html || '<p style="text-align:center;color:#999;padding:40px;">无匹配产品</p>';
   }
 
