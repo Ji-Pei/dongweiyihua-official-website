@@ -375,16 +375,32 @@ function initProductFilter() {
       catTrack.innerHTML = '<p style="color:#999;padding:20px;">加载分类失败</p>';
     });
 
-  // 2. 加载产品
+  // 2. 加载产品（API优先，失败降级到本地数据）
   fetch(API_BASE + '/api/pc/get_products')
     .then(function(r){return r.json();})
     .then(function(res){
-      allProducts = (res.data && res.data.list) || [];
-      if(allProducts.length === 0){ productSections.innerHTML='<p style="text-align:center;color:#999;padding:40px;">暂无产品</p>'; return; }
+      var list = (res.data && res.data.list) || (res.data && res.data) || [];
+      if (list.length > 0) {
+        // 统一字段名
+        allProducts = list.map(function(p){
+          return {
+            id: p.id,
+            store_name: p.store_name || p.name || '',
+            store_info: p.store_info || p.info || '',
+            image: p.image || p.img || '',
+            price: p.price || 0,
+            cate_name: p.cate_name || p.category_name || p.category || '其他',
+            brand: p.brand || ''
+          };
+        });
+      }
+      if(allProducts.length === 0){ allProducts = productData; }
       renderProductSections();
     })
     .catch(function(){
-      productSections.innerHTML = '<p style="text-align:center;color:#999;padding:40px;">加载产品失败</p>';
+      // API失败，降级到本地数据
+      allProducts = productData;
+      renderProductSections();
     });
 
   // 分类大图映射（按分类名取第一个产品的image作为banner）
@@ -419,7 +435,6 @@ function initProductFilter() {
     var html = '';
     catList.forEach(function(item, idx){
       var catName = item.name;
-      if (catName === '其他') return; // 跳过"其他"分类
       var catId = 'cat-' + (idx + 1);
       html += '<div class="prod-cat-section" id="' + catId + '">';
       // 头部：大图 + 名称 + 更多
