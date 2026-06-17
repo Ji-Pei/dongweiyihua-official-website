@@ -532,11 +532,11 @@ function initSolutions() {
         var img = item.image || '';
         html += '<a href=\"solutions-detail.html?id='+item.id+'\" class=\"solution-card\">';
         html += '<div class=\"solution-card-img\">';
-        html += img ? '<img src=\"'+img+'\" alt=\"'+item.title+'\" loading=\"lazy\">' : '<span style=\"color:#ccc;\">'+item.title+'</span>';
+        html += img ? '<img src=\"'+img+'\" alt=\"'+item.title+'\" loading=\"lazy\">' : '<span style=\"font-size:2.5rem;opacity:0.15;\">&#9881;</span>';
         html += '</div>';
         html += '<div class=\"solution-card-body\">';
         html += '<h3>'+item.title+'</h3>';
-        html += '<p>'+(item.intr||'')+'</p>';
+        html += '<p>'+(item.intr || '点击了解更多')+'</p>';
         html += '<span class=\"solution-card-more\">了解更多 &rarr;</span>';
         html += '</div></a>';
       });
