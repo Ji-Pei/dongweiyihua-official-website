@@ -912,6 +912,7 @@ h4 { font-size: 1.25rem; }    /* 20px */
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  position: relative;
 }
 
 .solution-card-img img {
@@ -923,6 +924,38 @@ h4 { font-size: 1.25rem; }    /* 20px */
 
 .solution-card:hover .solution-card-img img {
   transform: scale(1.05);
+}
+
+/* hover遮罩 + 按钮 */
+.solution-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.solution-card:hover .solution-card-overlay {
+  opacity: 1;
+}
+
+.solution-card-overlay span {
+  padding: 8px 24px;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.solution-card:hover .solution-card-overlay span {
+  background: var(--dhwy-red);
+  border-color: var(--dhwy-red);
 }
 
 .solution-card-body {
@@ -939,7 +972,7 @@ h4 { font-size: 1.25rem; }    /* 20px */
 .solution-card-body p {
   font-size: 0.8125rem;
   color: #999;
-  margin: 0 0 12px;
+  margin: 0;
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -948,9 +981,7 @@ h4 { font-size: 1.25rem; }    /* 20px */
 }
 
 .solution-card-more {
-  font-size: 0.8125rem;
-  color: var(--dhwy-red);
-  font-weight: 600;
+  display: none;
 }
 
 @media (max-width: 1024px) {
