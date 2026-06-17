@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initCategoryScroll();
   initScrollEffects();
   initProductFilter();
+  initSolutions();
   initCart();
   initContactForm();
   initQuantitySelectors();
@@ -508,6 +509,42 @@ function initProductFilter() {
   catTrack.addEventListener('mouseleave', function(){ isDown=false; catTrack.classList.remove('dragging'); });
   catTrack.addEventListener('mouseup', function(){ isDown=false; catTrack.classList.remove('dragging'); });
   catTrack.addEventListener('mousemove', function(e){ if(!isDown) return; e.preventDefault(); var x=e.pageX-catTrack.offsetLeft; catTrack.scrollLeft=scrollLeft0-(x-startX)*1.5; });
+}
+
+/* ---- 解决方案页 ---- */
+function initSolutions() {
+  var grid = document.getElementById('solutionGrid');
+  if (!grid) return;
+
+  fetch(API_BASE + '/api/article/category/list')
+    .then(function(r){return r.json();})
+    .then(function(res){
+      var sol = null;
+      (res.data || []).forEach(function(c){
+        if (c.title === '解决方案') sol = c;
+      });
+      if (!sol || !sol.children.length){
+        grid.innerHTML = '<p style="text-align:center;color:#999;padding:40px;">暂无解决方案</p>';
+        return;
+      }
+      var html = '';
+      sol.children.forEach(function(item){
+        var img = item.image || '';
+        html += '<a href=\"solutions-detail.html?id='+item.id+'\" class=\"solution-card\">';
+        html += '<div class=\"solution-card-img\">';
+        html += img ? '<img src=\"'+img+'\" alt=\"'+item.title+'\" loading=\"lazy\">' : '<span style=\"color:#ccc;\">'+item.title+'</span>';
+        html += '</div>';
+        html += '<div class=\"solution-card-body\">';
+        html += '<h3>'+item.title+'</h3>';
+        html += '<p>'+(item.intr||'')+'</p>';
+        html += '<span class=\"solution-card-more\">了解更多 &rarr;</span>';
+        html += '</div></a>';
+      });
+      grid.innerHTML = html;
+    })
+    .catch(function(){
+      grid.innerHTML = '<p style=\"text-align:center;color:#999;padding:40px;\">加载失败</p>';
+    });
 }
 
 /* ---- 购物车 ---- */
