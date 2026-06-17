@@ -58,10 +58,21 @@ class ArticleCategoryDao extends BaseDao
      */
     public function getArticleCategory()
     {
-        return $this->search(['hidden' => 0, 'is_del' => 0, 'status' => 1, 'pid' => 0])->with(['children'])
+        $parents = $this->search(['hidden' => 0, 'is_del' => 0, 'status' => 1, 'pid' => 0])
             ->order('sort DESC,id DESC')
             ->field('id,pid,title,intr,image')
             ->select()->toArray();
+        $children = $this->search(['hidden' => 0, 'is_del' => 0, 'status' => 1])
+            ->where('pid', '>', 0)
+            ->order('sort ASC,id ASC')
+            ->field('id,pid,title,intr,image')
+            ->select()->toArray();
+        foreach ($parents as &$parent) {
+            $parent['children'] = array_values(array_filter($children, function($ch) use ($parent) {
+                return $ch['pid'] == $parent['id'];
+            }));
+        }
+        return $parents;
     }
 
     /**
