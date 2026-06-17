@@ -884,8 +884,10 @@ h4 { font-size: 1.25rem; }    /* 20px */
 /* ---- 解决方案卡片网格 ---- */
 .solution-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .solution-card {
@@ -896,6 +898,7 @@ h4 { font-size: 1.25rem; }    /* 20px */
   text-decoration: none;
   color: inherit;
   background: #fff;
+  text-align: center;
 }
 
 .solution-card:hover {
@@ -925,20 +928,20 @@ h4 { font-size: 1.25rem; }    /* 20px */
 }
 
 .solution-card-body {
-  padding: 16px;
+  padding: 20px 16px;
 }
 
 .solution-card-body h3 {
   font-size: 1rem;
   font-weight: 600;
   color: var(--dhwy-text-dark);
-  margin: 0 0 6px;
+  margin: 0 0 8px;
 }
 
 .solution-card-body p {
   font-size: 0.8125rem;
   color: #999;
-  margin: 0 0 10px;
+  margin: 0 0 12px;
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 2;
