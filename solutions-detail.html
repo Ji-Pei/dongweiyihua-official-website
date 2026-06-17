@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">解决方案详情 - 东巍益华</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .detail-hero {
+      min-height: 360px;
+      display: flex;
+      align-items: center;
+      background-color: #1a1a1a;
+      color: #fff;
+      text-align: center;
+      position: relative;
+    }
+    .detail-hero-bg {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center;
+    }
+    .detail-hero-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.55);
+    }
+    .detail-hero .container {
+      position: relative; z-index: 2;
+    }
+    .detail-hero h1 { margin-bottom: 8px; }
+    .detail-hero p.detail-intro {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9375rem;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+    .detail-breadcrumb {
+      position: absolute;
+      bottom: 20px;
+      left: 40px;
+      z-index: 3;
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.6);
+    }
+    .detail-breadcrumb a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+    }
+    .detail-breadcrumb a:hover { color: #fff; }
+    .detail-breadcrumb .current { color: #fff; }
+    .detail-breadcrumb .separator { margin: 0 6px; }
+
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .article-card {
+      border: 1px solid var(--dhwy-border-light);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      background: #fff;
+    }
+    .article-card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+    .article-card-img {
+      height: 180px;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .article-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .article-card-body {
+      padding: 16px;
+    }
+    .article-card-body h3 {
+      font-size: 1rem;
+      margin: 0 0 8px;
+      color: var(--dhwy-text-dark);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .article-card-body p {
+      font-size: 0.8125rem;
+      color: #999;
+      margin: 0 0 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      line-height: 1.5;
+    }
+    .article-card-date {
+      font-size: 0.75rem;
+      color: #bbb;
+    }
+    @media (max-width: 768px) {
+      .article-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 480px) {
+      .article-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon"><img src="images/logo.png" alt="东巍益华"></span>
+        <span>东巍益华</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="products.html">产品中心</a>
+        <a href="solutions.html" class="active">解决方案</a>
+        <a href="brands.html">授权品牌</a>
+        <a href="about.html">关于我们</a>
+        <a href="news.html">新闻动态</a>
+        <a href="contact.html" class="nav-contact-link">联系我们</a>
+      </div>
+      <div class="nav-actions">
+        <a href="login.html" class="nav-action-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>登录/注册</span>
+        </a>
+        <a href="cart.html" class="nav-action-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="20.5" r="1"/><circle cx="18" cy="20.5" r="1"/><path d="M2.5 2.5h3l2.7 13.3a2 2 0 0 0 2 1.7h7.7a2 2 0 0 0 2-1.7L22 7.5H6"/></svg>
+          <span>购物车</span>
+          <span class="cart-badge" id="cartBadge">(0)</span>
+        </a>
+      </div>
+      <div class="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="mobile-nav">
+      <a href="index.html">首页</a>
+      <a href="products.html">产品中心</a>
+      <a href="solutions.html" class="active">解决方案</a>
+      <a href="brands.html">授权品牌</a>
+      <a href="about.html">关于我们</a>
+      <a href="news.html">新闻动态</a>
+      <a href="contact.html">联系我们</a>
+      <a href="login.html">登录</a>
+      <a href="cart.html">购物车</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="detail-hero" id="detailHero">
+    <div class="detail-hero-bg" id="heroBg"></div>
+    <div class="detail-hero-overlay"></div>
+    <div class="container" id="heroContent">
+      <h1 id="heroTitle"></h1>
+      <p class="detail-intro" id="heroIntro"></p>
+    </div>
+    <div class="detail-breadcrumb" id="breadcrumb"></div>
+  </section>
+
+  <!-- 文章列表 -->
+  <section class="section">
+    <div class="container">
+      <div class="article-grid" id="articleGrid"></div>
+      <div id="noArticles" style="display:none;text-align:center;padding:40px;color:#999;">暂无相关文章</div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-contact">
+          <div class="footer-logo">
+            <img src="images/logo.png" alt="东巍益华" class="footer-logo-img">
+            <img src="images/bswenzi.png" alt="东巍益华" class="footer-logo-text-img">
+          </div>
+          <div class="footer-contact-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>重庆市巴南区东城大道2376号附3号4楼</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            <a href="tel:19112456894">19112456894</a>
+          </div>
+          <div class="footer-contact-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <a href="mailto:info@dongweiyihua.com">info@dongweiyihua.com</a>
+          </div>
+        </div>
+        <div class="footer-nav">
+          <div class="footer-nav-col">
+            <h4>产品中心</h4>
+            <a href="products.html">测绘仪器</a>
+            <a href="products.html">全站仪</a>
+            <a href="products.html">无人机</a>
+            <a href="products.html">工程测量</a>
+            <a href="products.html">测绘配件</a>
+          </div>
+          <div class="footer-nav-col">
+            <h4>解决方案</h4>
+            <a href="solutions.html">智能测绘</a>
+            <a href="solutions.html">智慧水利</a>
+            <a href="solutions.html">智慧水文</a>
+            <a href="solutions.html">地灾监测</a>
+            <a href="solutions.html">智慧矿山</a>
+          </div>
+          <div class="footer-nav-col">
+            <h4>服务支持</h4>
+            <a href="contact.html">售后服务</a>
+            <a href="contact.html">技术支持</a>
+            <a href="contact.html">仪器租赁</a>
+            <a href="contact.html">维修校准</a>
+          </div>
+          <div class="footer-nav-col">
+            <h4>东巍益华</h4>
+            <a href="about.html">公司简介</a>
+            <a href="about.html">企业文化</a>
+            <a href="about.html">资质荣誉</a>
+          </div>
+          <div class="footer-nav-col">
+            <h4>资讯中心</h4>
+            <a href="news.html">公司新闻</a>
+            <a href="news.html">行业动态</a>
+            <a href="news.html">技术文章</a>
+          </div>
+          <div class="footer-nav-col">
+            <h4>线上商城</h4>
+            <a href="contact.html">微信商城</a>
+            <a href="contact.html">京东商城</a>
+            <a href="contact.html">淘宝商城</a>
+          </div>
+        </div>
+        <div class="footer-side">
+          <div class="footer-qr-row">
+            <div class="footer-qr-item">
+              <img src="images/fuwuhao.jpg" alt="微信服务号" class="footer-qr-img">
+              <p>微信服务号</p>
+            </div>
+            <div class="footer-qr-item">
+              <img src="images/dingyuehao.jpg" alt="微信订阅号" class="footer-qr-img">
+              <p>微信订阅号</p>
+            </div>
+            <div class="footer-qr-item">
+              <img src="images/douyin.jpg" alt="抖音号" class="footer-qr-img">
+              <p>抖音号</p>
+            </div>
+            <div class="footer-qr-item">
+              <img src="images/kefu.jpg" alt="客服微信" class="footer-qr-img">
+              <p>客服微信</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-friend-links">
+        <span>友情链接：</span>
+        <a href="https://www.huace.cn" target="_blank" rel="nofollow">华测导航</a>
+        <a href="https://www.southsurvey.com" target="_blank" rel="nofollow">南方测绘</a>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 东巍益华 版权所有</span>
+        <span>ICP备案号：黔ICP备XXXXXXXX号</span>
+        <span>公安备案号：渝公网安备 XXXXXXXXXXXX号</span>
+      </div>
+    </div>
+  </footer>
+
+<script>
+var API_BASE = 'http://101.43.99.228';
+
+(function(){
+  var cid = parseInt(new URLSearchParams(location.search).get('id') || 0);
+  if (!cid) { document.getElementById('heroTitle').textContent = '参数错误'; return; }
+
+  // 加载分类详情
+  fetch(API_BASE + '/api/article/category/list')
+    .then(function(r){return r.json();})
+    .then(function(res){
+      var cats = [];
+      (res.data||[]).forEach(function(c){
+        cats.push(c);
+        (c.children||[]).forEach(function(ch){ cats.push(ch); });
+      });
+      var cat = null;
+      for(var i = 0; i < cats.length; i++){
+        if(String(cats[i].id) === String(cid)){ cat = cats[i]; break; }
+      }
+      if(!cat){ document.getElementById('heroTitle').textContent = '分类不存在'; return; }
+
+      document.title = cat.title + ' - 东巍益华';
+      document.getElementById('heroTitle').textContent = cat.title;
+      document.getElementById('heroIntro').textContent = cat.intr || '';
+      document.getElementById('breadcrumb').innerHTML = '<a href=\"index.html\">首页</a><span class=\"separator\">/</span><a href=\"solutions.html\">行业解决方案</a><span class=\"separator\">/</span><span class=\"current\">' + cat.title + '</span>';
+
+      if(cat.image){
+        document.getElementById('heroBg').style.backgroundImage = 'url(' + cat.image + ')';
+        document.getElementById('heroBg').style.opacity = '0.35';
+      }
+    });
+
+  // 加载文章列表
+  fetch(API_BASE + '/api/article/list/' + cid)
+    .then(function(r){return r.json();})
+    .then(function(res){
+      var list = res.data || [];
+      var grid = document.getElementById('articleGrid');
+      var empty = document.getElementById('noArticles');
+      if(!list.length){ empty.style.display = 'block'; return; }
+      empty.style.display = 'none';
+      var html = '';
+      list.forEach(function(a){
+        var img = a.image_input ? a.image_input[0] : '';
+        html += '<a href=\"article.html?id='+(a.id||'')+'\" class=\"article-card\">';
+        html += '<div class=\"article-card-img\">';
+        html += img ? '<img src=\"'+img+'\" alt=\"'+(a.title||'')+'\" loading=\"lazy\">' : '<span style=\"color:#ccc;\">暂无图片</span>';
+        html += '</div>';
+        html += '<div class=\"article-card-body\">';
+        html += '<h3>'+(a.title||'')+'</h3>';
+        html += '<p>'+(a.synopsis||a.title||'')+'</p>';
+        html += '<span class=\"article-card-date\">'+(a.add_time||'')+'</span>';
+        html += '</div></a>';
+      });
+      grid.innerHTML = html;
+    })
+    .catch(function(){ document.getElementById('noArticles').style.display = 'block'; });
+})();
+</script>
+<script src="script.js"></script>
+</body>
+</html>
