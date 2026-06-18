@@ -6,27 +6,420 @@
   <title>关于我们 - 东巍益华</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .scope-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.1); transform: translateY(-4px); border-color: var(--dhwy-red) !important; }
-    @media (max-width: 768px) { .scope-grid { grid-template-columns: 1fr !important; } }
+    /* ---- 业务范围卡片 ---- */
+    .scope-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .scope-card {
+      background: #fff;
+      border: 1px solid var(--dhwy-border-light);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .scope-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      transform: translateY(-4px);
+    }
+
+    /* 卡片图片区域 */
+    .scope-card-img {
+      height: 240px;
+      overflow: hidden;
+      position: relative;
+      background: #e8e8e8;
+    }
+    .scope-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .scope-card:hover .scope-card-img img {
+      transform: scale(1.06);
+    }
+    /* 图片hover灰色遮罩 - 从左到右出现 */
+    .scope-card-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
+      z-index: 1;
+    }
+    .scope-card:hover .scope-card-img::after {
+      transform: translateX(0);
+    }
+
+    /* 卡片内容区 */
+    .scope-card-body {
+      padding: 20px 18px 0;
+      text-align: center;
+      flex: 1;
+    }
+
+    /* 中间图标 - 大红底色→天蓝色，图标固定白色 */
+    .scope-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: #CC0000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: -32px auto 14px;
+      position: relative;
+      z-index: 3;
+      transition: background 0.4s ease;
+    }
+    .scope-icon-box svg {
+      stroke: #fff;
+    }
+    .scope-card:hover .scope-icon-box {
+      background: #42b4f0;
+    }
+
+    .scope-card-body h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dhwy-text-dark);
+      margin-bottom: 8px;
+    }
+    .scope-card-body p {
+      font-size: 0.8125rem;
+      color: var(--dhwy-text-gray);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* 了解更多按钮 - 左到右"加血"填充 */
+    .scope-card-btn {
+      display: inline-block;
+      margin: 16px 18px 22px;
+      padding: 8px 24px;
+      border: 2px solid var(--dhwy-red);
+      border-radius: 4px;
+      color: var(--dhwy-red);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.4s ease;
+      z-index: 1;
+      background: transparent;
+    }
+    .scope-card-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--dhwy-red);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.4s ease;
+      z-index: -1;
+    }
+    .scope-card:hover .scope-card-btn::before {
+      transform: scaleX(1);
+    }
+    .scope-card:hover .scope-card-btn {
+      color: #fff;
+    }
+
+    @media (max-width: 1024px) {
+      .scope-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .scope-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
-<nav class="nav"><div class="nav-inner"><a href="index.html" class="nav-logo"><span class="logo-icon"><img src="images/logo.png" alt="东巍益华"></span><span>东巍益华</span></a><div class="nav-links"><a href="index.html">首页</a><a href="products.html">产品中心</a><a href="solutions.html">解决方案</a><a href="brands.html">授权品牌</a><a href="about.html" class="active">关于我们</a><a href="news.html">新闻动态</a><a href="contact.html" class="nav-contact-link">联系我们</a></div><div class="nav-actions"><a href="login.html" class="nav-action-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>登录/注册</span></a><a href="cart.html" class="nav-action-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="20.5" r="1"/><circle cx="18" cy="20.5" r="1"/><path d="M2.5 2.5h3l2.7 13.3a2 2 0 0 0 2 1.7h7.7a2 2 0 0 0 2-1.7L22 7.5H6"/></svg><span>购物车</span><span class="cart-badge" id="cartBadge">(0)</span></a></div><div class="hamburger"><span></span><span></span><span></span></div></div><div class="mobile-nav"><a href="index.html">首页</a><a href="products.html">产品中心</a><a href="solutions.html">解决方案</a><a href="brands.html">授权品牌</a><a href="about.html" class="active">关于我们</a><a href="news.html">新闻动态</a><a href="contact.html">联系我们</a><a href="login.html">登录</a><a href="cart.html">购物车</a></div></nav>
 
-<section class="page-hero" style="min-height:600px;position:relative;display:flex;align-items:center;background:linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)),url('images/hyjjbanner.jpg') center/cover no-repeat;background-color:#1a1a1a;"><div class="container"><h1>关于我们</h1><p style="color:rgba(255,255,255,0.75);font-size:0.9375rem;max-width:600px;margin:12px auto 0;">一站式工程配套服务，助力项目高效推进</p></div><div style="position:absolute;bottom:20px;left:0;right:0;"><div class="container"><div class="breadcrumb"><a href="index.html">首页</a><span class="separator">/</span><span class="current">关于我们</span></div></div></div></section>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon"><img src="images/logo.png" alt="东巍益华"></span>
+        <span>东巍益华</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="products.html">产品中心</a>
+        <a href="solutions.html">解决方案</a>
+        <a href="downloads.html">下载中心</a>
+        <a href="about.html" class="active">关于我们</a>
+        <a href="news.html">资讯中心</a>
+        <a href="contact.html" class="nav-contact-link">联系我们</a>
+      </div>
+      <div class="nav-actions">
+        <a href="login.html" class="nav-action-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>登录/注册</span>
+        </a>
+        <a href="cart.html" class="nav-action-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="20.5" r="1"/><circle cx="18" cy="20.5" r="1"/><path d="M2.5 2.5h3l2.7 13.3a2 2 0 0 0 2 1.7h7.7a2 2 0 0 0 2-1.7L22 7.5H6"/></svg>
+          <span>购物车</span>
+          <span class="cart-badge" id="cartBadge">(0)</span>
+        </a>
+      </div>
+      <div class="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="mobile-nav">
+      <a href="index.html">首页</a>
+      <a href="products.html">产品中心</a>
+      <a href="solutions.html">解决方案</a>
+      <a href="downloads.html">下载中心</a>
+      <a href="about.html" class="active">关于我们</a>
+      <a href="news.html">资讯中心</a>
+      <a href="contact.html">联系我们</a>
+      <a href="login.html">登录</a>
+      <a href="cart.html">购物车</a>
+    </div>
+  </nav>
 
-<section class="section"><div class="container"><div class="about-intro"><div class="about-image" style="overflow:hidden;"><img src="images/dwyhmt.jpg" alt="东巍益华" style="width:100%;height:100%;object-fit:cover;"></div><div class="about-text"><span class="accent-line"></span><h2>企业介绍</h2><p>重庆东巍益华工程科技有限公司，是一家专注于工程建设领域，集无人机、测绘仪器、检测仪器供应，零星辅材配送，新型材料应用，建筑材料租售于一体的综合性服务企业。</p><p>自成立以来，我们始终聚焦工程建设核心需求，整合优质资源，打造一站式工程配套服务体系，为各类工程项目提供全方位、高效率、高品质的物资与租赁支持，涵盖工程测绘、质量检测、现场施工等多个环节，助力项目高效推进。</p><p>多年来，公司在全体员工的同心聚力、奋力拼搏下，脚踏实地、稳步前行，逐步实现规模与实力的双重提升，从单一的物资供应，发展成为兼具物资供应、设备租赁、配套服务的综合性企业，在行业内积累了良好的口碑与丰富的实践经验。</p><p>我们始终坚守诚信为本、开拓创新、优质服务的核心精神，秉持专业、用心、负责的经营理念，以客户需求为导向，深耕工程配套服务领域，在探索中突破，在创新中前行，开启了东巍益华全面高质量发展的新时期。</p></div></div></div></section>
+  <section class="page-hero" style="min-height:600px;position:relative;display:flex;align-items:center;background:linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)),url('images/hyjjbanner.jpg') center/cover no-repeat;background-color:#1a1a1a;">
+    <div class="container">
+      <h1>关于我们</h1>
+      <p style="color:rgba(255,255,255,0.75);font-size:0.9375rem;max-width:600px;margin:12px auto 0;">一站式工程配套服务，助力项目高效推进</p>
+    </div>
+    <div style="position:absolute;bottom:20px;left:0;right:0;">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="index.html">首页</a><span class="separator">/</span><span class="current">关于我们</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section class="section" style="background:var(--dhwy-bg-gray);"><div class="container"><div class="section-header"><span class="accent-line"></span><h2>企业理念</h2><p>以品质为根本，以创新为驱动</p></div><div style="max-width:860px;margin:0 auto;"><p style="color:var(--dhwy-text-gray);line-height:1.9;margin-bottom:20px;font-size:0.9375rem;">我们始终秉承两大核心信条：以产品质量为根本，坚守品质底线，与客户携手共促发展、实现互利共赢；依托智能装备的升级迭代与新型材料的研发应用，精准解决客户资源短板，为项目推进提供有力支撑。</p><p style="color:var(--dhwy-text-gray);line-height:1.9;font-size:0.9375rem;">同时，我们深耕产销加工全链条，打造高效便捷的一站式采购服务体系，秉持诚信共赢理念，用心做好每一项服务，努力成为客户可信赖、可依托的合作伙伴，助力工程领域高质量发展。</p></div></div></section>
+  <!-- 企业介绍 -->
+  <section class="section">
+    <div class="container">
+      <div class="about-intro">
+        <div class="about-image" style="overflow:hidden;">
+          <img src="images/dwyhmt.jpg" alt="东巍益华" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="about-text">
+          <span class="accent-line"></span>
+          <h2>企业介绍</h2>
+          <p>重庆东巍益华工程科技有限公司，是一家专注于工程建设领域，集无人机、测绘仪器、检测仪器供应，零星辅材配送，新型材料应用，建筑材料租售于一体的综合性服务企业。</p>
+          <p>自成立以来，我们始终聚焦工程建设核心需求，整合优质资源，打造"一站式"工程配套服务体系，为各类工程项目提供全方位、高效率、高品质的物资与租赁支持，涵盖工程测绘、质量检测、现场施工等多个环节，助力项目高效推进。</p>
+          <p>多年来，公司在全体员工的同心聚力、奋力拼搏下，脚踏实地、稳步前行，逐步实现规模与实力的双重提升，从单一的物资供应，发展成为兼具物资供应、设备租赁、配套服务的综合性企业，在行业内积累了良好的口碑与丰富的实践经验。</p>
+          <p>我们始终坚守"诚信为本、开拓创新、优质服务"的核心精神，秉持"专业、用心、负责"的经营理念，以客户需求为导向，深耕工程配套服务领域，在探索中突破，在创新中前行，开启了东巍益华全面高质量发展的新时期。</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section class="section"><div class="container"><div class="section-header"><span class="accent-line"></span><h2>业务范围</h2><p>四大核心板块，一站式工程配套</p></div><div class="scope-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:960px;margin:0 auto;">
-<div class="scope-card" style="background:#fff;border:1px solid var(--dhwy-border-light);border-radius:12px;padding:36px 32px;transition:all 0.3s ease;"><div style="width:48px;height:48px;background:var(--dhwy-red-light);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--dhwy-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><h3 style="font-size:1.125rem;font-weight:700;margin-bottom:10px;color:var(--dhwy-text-dark);">测绘及试验仪器</h3><p style="color:var(--dhwy-text-gray);line-height:1.75;font-size:0.9375rem;">提供专业测绘仪器、高精度检测仪器及无人机供应服务。</p></div>
-<div class="scope-card" style="background:#fff;border:1px solid var(--dhwy-border-light);border-radius:12px;padding:36px 32px;transition:all 0.3s ease;"><div style="width:48px;height:48px;background:var(--dhwy-red-light);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--dhwy-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><h3 style="font-size:1.125rem;font-weight:700;margin-bottom:10px;color:var(--dhwy-text-dark);">零星材料及租赁</h3><p style="color:var(--dhwy-text-gray);line-height:1.75;font-size:0.9375rem;">提供建筑零星材料、配套耗材供应及各类器材租赁服务。</p></div>
-<div class="scope-card" style="background:#fff;border:1px solid var(--dhwy-border-light);border-radius:12px;padding:36px 32px;transition:all 0.3s ease;"><div style="width:48px;height:48px;background:var(--dhwy-red-light);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--dhwy-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div><h3 style="font-size:1.125rem;font-weight:700;margin-bottom:10px;color:var(--dhwy-text-dark);">工程总承包</h3><p style="color:var(--dhwy-text-gray);line-height:1.75;font-size:0.9375rem;">统筹推进项目落地，承接水电劳务、桥隧防水等全流程总承包服务。</p></div>
-<div class="scope-card" style="background:#fff;border:1px solid var(--dhwy-border-light);border-radius:12px;padding:36px 32px;transition:all 0.3s ease;"><div style="width:48px;height:48px;background:var(--dhwy-red-light);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--dhwy-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><h3 style="font-size:1.125rem;font-weight:700;margin-bottom:10px;color:var(--dhwy-text-dark);">工商业光伏</h3><p style="color:var(--dhwy-text-gray);line-height:1.75;font-size:0.9375rem;">深耕新型能源领域，布局工商业光伏发电、智慧充电桩建设及储能服务。</p></div>
-</div></div></section>
+  <!-- 企业理念 -->
+  <section class="section" style="background:var(--dhwy-bg-gray);">
+    <div class="container">
+      <div class="section-header">
+        <span class="accent-line"></span>
+        <h2>企业理念</h2>
+        <p>以品质为根本，以创新为驱动</p>
+      </div>
+      <div class="about-philosophy" style="max-width:860px;margin:0 auto;">
+        <p style="color:var(--dhwy-text-gray);line-height:1.9;margin-bottom:20px;font-size:0.9375rem;">我们始终秉承两大核心信条：以产品质量为根本，坚守品质底线，与客户携手共促发展、实现互利共赢；依托智能装备的升级迭代与新型材料的研发应用，精准解决客户资源短板，为项目推进提供有力支撑。</p>
+        <p style="color:var(--dhwy-text-gray);line-height:1.9;font-size:0.9375rem;">同时，我们深耕产销加工全链条，打造高效便捷的一站式采购服务体系，秉持诚信共赢理念，用心做好每一项服务，努力成为客户可信赖、可依托的合作伙伴，助力工程领域高质量发展。</p>
+      </div>
+    </div>
+  </section>
 
-<footer class="footer"><div class="container"><div class="footer-main"><div class="footer-contact"><div class="footer-logo"><img src="images/logo.png" alt="东巍益华" class="footer-logo-img"><img src="images/bswenzi.png" alt="东巍益华" class="footer-logo-text-img"></div><div class="footer-contact-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span>重庆市巴南区东城大道2376号附3号4楼</span></div><div class="footer-contact-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg><a href="tel:19112456894">19112456894</a></div><div class="footer-contact-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><a href="mailto:info@dongweiyihua.com">info@dongweiyihua.com</a></div></div><div class="footer-nav"><div class="footer-nav-col"><h4>产品中心</h4><a href="products.html">测绘仪器</a><a href="products.html">全站仪</a><a href="products.html">无人机</a><a href="products.html">工程测量</a><a href="products.html">测绘配件</a></div><div class="footer-nav-col"><h4>解决方案</h4><a href="solutions.html">智能测绘</a><a href="solutions.html">智慧水利</a><a href="solutions.html">智慧水文</a><a href="solutions.html">地灾监测</a><a href="solutions.html">智慧矿山</a></div><div class="footer-nav-col"><h4>服务支持</h4><a href="contact.html">售后服务</a><a href="contact.html">技术支持</a><a href="contact.html">仪器租赁</a><a href="contact.html">维修校准</a></div><div class="footer-nav-col"><h4>东巍益华</h4><a href="about.html">公司简介</a><a href="about.html">企业文化</a><a href="about.html">资质荣誉</a></div><div class="footer-nav-col"><h4>资讯中心</h4><a href="news.html">公司新闻</a><a href="news.html">行业动态</a><a href="news.html">技术文章</a></div><div class="footer-nav-col"><h4>线上商城</h4><a href="contact.html">微信商城</a><a href="contact.html">京东商城</a><a href="contact.html">淘宝商城</a></div></div><div class="footer-side"><div class="footer-qr-row"><div class="footer-qr-item"><img src="images/fuwuhao.jpg" alt="微信服务号" class="footer-qr-img"><p>微信服务号</p></div><div class="footer-qr-item"><img src="images/dingyuehao.jpg" alt="微信订阅号" class="footer-qr-img"><p>微信订阅号</p></div><div class="footer-qr-item"><img src="images/douyin.jpg" alt="抖音号" class="footer-qr-img"><p>抖音号</p></div><div class="footer-qr-item"><img src="images/kefu.jpg" alt="客服微信" class="footer-qr-img"><p>客服微信</p></div></div></div></div><div class="footer-friend-links"><span>友情链接：</span><a href="https://www.huace.cn" target="_blank" rel="nofollow">华测导航</a><a href="https://www.southsurvey.com" target="_blank" rel="nofollow">南方测绘</a></div><div class="footer-bottom"><span>&copy; 2026 东巍益华 版权所有</span><span>ICP备案号：黔ICP备XXXXXXXX号</span><span>公安备案号：渝公网安备 XXXXXXXXXXXX号</span></div></div></footer>
-<script src="script.js"></script>
+  <!-- 业务范围 -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="accent-line"></span>
+        <h2>业务范围</h2>
+        <p>四大核心板块，一站式工程配套</p>
+      </div>
+      <div class="scope-grid">
+        <!-- 卡片1：测绘及试验仪器 -->
+        <div class="scope-card">
+          <div class="scope-card-img">
+            <img src="images/行业解决方案_001.jpg" alt="测绘及试验仪器" loading="lazy">
+          </div>
+          <div class="scope-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <div class="scope-card-body">
+            <h3>测绘及试验仪器</h3>
+            <p>提供专业测绘仪器、高精度检测仪器及无人机供应服务。</p>
+          </div>
+          <a href="products.html" class="scope-card-btn">查看详情</a>
+        </div>
+
+        <!-- 卡片2：零星材料及租赁 -->
+        <div class="scope-card">
+          <div class="scope-card-img">
+            <img src="images/行业解决方案_002.jpg" alt="零星材料及租赁" loading="lazy">
+          </div>
+          <div class="scope-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <div class="scope-card-body">
+            <h3>零星材料及租赁</h3>
+            <p>提供建筑零星材料、配套耗材供应及各类器材租赁服务。</p>
+          </div>
+          <a href="products.html" class="scope-card-btn">查看详情</a>
+        </div>
+
+        <!-- 卡片3：工程总承包 -->
+        <div class="scope-card">
+          <div class="scope-card-img">
+            <img src="images/行业解决方案_003.jpg" alt="工程总承包" loading="lazy">
+          </div>
+          <div class="scope-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+          </div>
+          <div class="scope-card-body">
+            <h3>工程总承包</h3>
+            <p>统筹推进项目落地，承接水电劳务、桥隧防水等全流程总承包服务。</p>
+          </div>
+          <a href="products.html" class="scope-card-btn">查看详情</a>
+        </div>
+
+        <!-- 卡片4：工商业光伏 -->
+        <div class="scope-card">
+          <div class="scope-card-img">
+            <img src="images/行业解决方案_004.jpg" alt="工商业光伏" loading="lazy">
+          </div>
+          <div class="scope-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <div class="scope-card-body">
+            <h3>工商业光伏</h3>
+            <p>深耕新型能源领域，布局工商业光伏发电、智慧充电桩建设及储能服务。</p>
+          </div>
+          <a href="products.html" class="scope-card-btn">查看详情</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 页脚 ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-main">
+        <!-- 左：联系方式 -->
+        <div class="footer-contact">
+          <div class="footer-logo">
+            <img src="images/logo.png" alt="东巍益华" class="footer-logo-img">
+            <img src="images/bswenzi.png" alt="东巍益华" class="footer-logo-text-img">
+          </div>
+          <div class="footer-contact-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>重庆市巴南区东城大道2376号附3号4楼</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            <a href="tel:19112456894">19112456894</a>
+          </div>
+          <div class="footer-contact-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <a href="mailto:info@dongweiyihua.com">info@dongweiyihua.com</a>
+          </div>
+        </div>
+
+        <!-- 中：导航链接列 -->
+        <div class="footer-nav">
+          <div class="footer-nav-col">
+            <h4>产品中心</h4>
+            <a href="products.html">测绘仪器</a>
+            <a href="products.html">全站仪</a>
+            <a href="products.html">无人机</a>
+            <a href="products.html">工程测量</a>
+            <a href="products.html">测绘配件</a>
+          </div>
+          <div class="footer-nav-col">
+            <h4>解决方案</h4>
+            <a href="solutions.html">智能测绘</a>
+            <a href="solutions.html">智慧水利</a>
+            <a href="solutions.html">智慧水文</a>
+            <a href="solutions.html">地灾监测</a>
+            <a href="solutions.html">智慧矿山</a>
+          </div>
+          <div class="footer-nav-col">
+            <h4>服务支持</h4>
+            <a href="contact.html">售后服务</a>
+            <a href="contact.html">技术支持</a>
+            <a href="contact.html">仪器租赁</a>
+            <a href="contact.html">维修校准</a>
+          </div>
+          <div class="footer-nav-col">
+            <h4>东巍益华</h4>
+            <a href="about.html">公司简介</a>
+            <a href="about.html">企业文化</a>
+            <a href="about.html">资质荣誉</a>
+          </div>
+          <div class="footer-nav-col">
+            <h4>资讯中心</h4>
+            <a href="news.html">公司新闻</a>
+            <a href="news.html">行业动态</a>
+            <a href="news.html">技术文章</a>
+          </div>
+          <div class="footer-nav-col">
+            <h4>线上商城</h4>
+            <a href="contact.html">微信商城</a>
+            <a href="contact.html">京东商城</a>
+            <a href="contact.html">淘宝商城</a>
+          </div>
+        </div>
+
+        <!-- 右：二维码 -->
+        <div class="footer-side">
+          <div class="footer-qr-row">
+            <div class="footer-qr-item">
+              <img src="images/fuwuhao.jpg" alt="微信服务号" class="footer-qr-img">
+              <p>微信服务号</p>
+            </div>
+            <div class="footer-qr-item">
+              <img src="images/dingyuehao.jpg" alt="微信订阅号" class="footer-qr-img">
+              <p>微信订阅号</p>
+            </div>
+            <div class="footer-qr-item">
+              <img src="images/douyin.jpg" alt="抖音号" class="footer-qr-img">
+              <p>抖音号</p>
+            </div>
+            <div class="footer-qr-item">
+              <img src="images/kefu.jpg" alt="客服微信" class="footer-qr-img">
+              <p>客服微信</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 友情链接（独立行） -->
+      <div class="footer-friend-links">
+        <span>友情链接：</span>
+        <a href="https://www.huace.cn" target="_blank" rel="nofollow">华测导航</a>
+        <a href="https://www.southsurvey.com" target="_blank" rel="nofollow">南方测绘</a>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 东巍益华 版权所有</span>
+        <span>ICP备案号：黔ICP备XXXXXXXX号</span>
+        <span>公安备案号：渝公网安备 XXXXXXXXXXXX号</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
 </body>
 </html>
