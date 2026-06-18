@@ -5,6 +5,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>联系我们 - 东巍益华</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .contact-card-item {
+      background: #fff;
+      border: 1px solid var(--dhwy-border-light);
+      border-radius: 12px;
+      padding: 28px 24px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      transition: all 0.3s ease;
+    }
+    .contact-card-item:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      transform: translateY(-4px);
+    }
+    .cc-icon {
+      width: 52px; height: 52px; min-width: 52px;
+      background: #fde8e8; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.3s ease;
+    }
+    .cc-icon svg { transition: stroke 0.3s ease; }
+    .contact-card-item:hover .cc-icon { background: #CC0000; }
+    .contact-card-item:hover .cc-icon svg { stroke: #fff; }
+    .cc-title { font-size: 1rem; font-weight: 700; color: var(--dhwy-text-dark); margin-bottom: 4px; white-space: nowrap; }
+    .cc-text { font-size: 0.8125rem; color: var(--dhwy-text-gray); line-height: 1.7; margin: 0; }
+    .cc-link { font-size: 0.8125rem; color: var(--dhwy-red); text-decoration: none; word-break: break-all; }
+    .contact-form-wrap {
+      background: #fff; border: 1px solid var(--dhwy-border-light);
+      border-radius: 12px; padding: 36px 32px;
+    }
+    .contact-map-wrap {
+      border-radius: 12px; overflow: hidden;
+      min-height: 100%;
+    }
+    #txMap {
+      width: 100%;
+      height: 100%;
+      min-height: 500px;
+    }
+
+    .store-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; }
+    @media (max-width: 768px) {
+      .contact-cards { grid-template-columns: 1fr !important; }
+      .contact-form-map { grid-template-columns: 1fr !important; }
+      .contact-map-wrap { min-height: 300px; }
+      .store-layout { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
@@ -18,9 +67,9 @@
         <a href="index.html">首页</a>
         <a href="products.html">产品中心</a>
         <a href="solutions.html">解决方案</a>
-        <a href="brands.html">授权品牌</a>
+        <a href="downloads.html">下载中心</a>
         <a href="about.html">关于我们</a>
-        <a href="news.html">新闻动态</a>
+        <a href="news.html">资讯中心</a>
         <a href="contact.html" class="nav-contact-link active">联系我们</a>
       </div>
       <div class="nav-actions">
@@ -42,115 +91,166 @@
       <a href="index.html">首页</a>
       <a href="products.html">产品中心</a>
       <a href="solutions.html">解决方案</a>
-      <a href="brands.html">授权品牌</a>
+      <a href="downloads.html">下载中心</a>
       <a href="about.html">关于我们</a>
-      <a href="news.html">新闻动态</a>
+      <a href="news.html">资讯中心</a>
       <a href="contact.html">联系我们</a>
       <a href="login.html">登录</a>
       <a href="cart.html">购物车</a>
     </div>
   </nav>
 
-  <section class="page-hero">
+  <section class="page-hero" style="min-height:600px;position:relative;display:flex;align-items:center;background:linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)),url('images/hyjjbanner.jpg') center/cover no-repeat;background-color:#1a1a1a;">
     <div class="container">
       <h1>联系我们</h1>
-      <div class="breadcrumb">
-        <a href="index.html">首页</a><span class="separator">/</span><span class="current">联系我们</span>
+      <p style="color:rgba(255,255,255,0.75);font-size:0.9375rem;max-width:600px;margin:12px auto 0;">欢迎随时联系我们，第一时间为您提供专业的测绘仪器咨询与服务</p>
+    </div>
+    <div style="position:absolute;bottom:20px;left:0;right:0;">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="index.html">首页</a><span class="separator">/</span><span class="current">联系我们</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <!-- 联系信息卡片 -->
+  <section class="section" style="padding-bottom:0;">
     <div class="container">
-      <div class="contact-layout">
-        <!-- 左侧联系信息 -->
-        <div class="contact-info">
-          <h2>联系方式</h2>
-          <p style="color:#757575;line-height:1.75;margin-bottom:32px;">欢迎随时联系我们，我们将在第一时间为您提供专业的测绘仪器咨询与服务。</p>
-
-          <div class="contact-info-item">
-            <div class="contact-info-icon" style="background:var(--dhwy-red-light);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#9742;</div>
-            <div>
-              <strong>联系电话</strong>
-              <p style="color:#757575;font-size:0.875rem;">19112456894</p>
-              <p style="color:#757575;font-size:0.875rem;">138-XXXX-XXXX</p>
+      <div class="section-header">
+        <span class="accent-line"></span>
+        <h2>联系方式</h2>
+        <p>欢迎随时联系我们，第一时间为您提供专业的咨询与服务</p>
+      </div>
+      <div style="max-width:1200px;margin:0 auto;">
+        <!-- 上排2个 -->
+        <div class="contact-cards" style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:20px;">
+          <!-- 测绘电话 -->
+          <div class="contact-card-item">
+            <div class="cc-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#CC0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             </div>
+            <h4 class="cc-title">测绘及试验仪器<br>零星材料及租赁</h4>
+            <p class="cc-text">杨先生 19833179332　余女士 19112456894</p>
           </div>
-
-          <div class="contact-info-item">
-            <div class="contact-info-icon" style="background:var(--dhwy-red-light);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#9993;</div>
-            <div>
-              <strong>电子邮箱</strong>
-              <p style="color:#757575;font-size:0.875rem;">info@dongweiyihua.com</p>
+          <!-- 工程电话 -->
+          <div class="contact-card-item">
+            <div class="cc-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#CC0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             </div>
-          </div>
-
-          <div class="contact-info-item">
-            <div class="contact-info-icon" style="background:var(--dhwy-red-light);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#9872;</div>
-            <div>
-              <strong>公司地址</strong>
-              <p style="color:#757575;font-size:0.875rem;">重庆市巴南区东城大道2376号附3号4楼</p>
-            </div>
-          </div>
-
-          <div class="contact-info-item">
-            <div class="contact-info-icon" style="background:var(--dhwy-red-light);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#8986;</div>
-            <div>
-              <strong>工作时间</strong>
-              <p style="color:#757575;font-size:0.875rem;">周一至周五 9:00 - 18:00</p>
-              <p style="color:#757575;font-size:0.875rem;">周六 9:00 - 12:00</p>
-            </div>
-          </div>
-
-          <div style="margin-top:24px;">
-            <strong style="display:block;margin-bottom:12px;">关注我们</strong>
-            <div class="qr-placeholder">微信公众号<br>二维码占位</div>
+            <h4 class="cc-title">工程总承包<br>工商业光伏</h4>
+            <p class="cc-text">王先生 19119155525</p>
           </div>
         </div>
+        <!-- 下排3个 -->
+        <div class="contact-cards" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+          <div class="contact-card-item">
+            <div class="cc-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#CC0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <h4 class="cc-title">电子邮箱</h4>
+            <a href="mailto:info@dongweiyihua.com" class="cc-link">info@dongweiyihua.com</a>
+          </div>
+          <div class="contact-card-item">
+            <div class="cc-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#CC0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <h4 class="cc-title">公司地址</h4>
+            <p class="cc-text">重庆市巴南区东城大道2376号附3号4楼</p>
+          </div>
+          <div class="contact-card-item">
+            <div class="cc-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#CC0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h4 class="cc-title">工作时间</h4>
+            <p class="cc-text">周一至周六<br>9:00 - 18:00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- 右侧表单 -->
-        <div class="contact-form" id="contact-form">
-          <h3>在线留言</h3>
+  <!-- 线下门店：贵州东巍测绘仪器 -->
+  <section class="section" style="padding-top:48px;padding-bottom:32px;">
+    <div class="container">
+      <div class="section-header">
+        <span class="accent-line"></span>
+        <h2>线下门店</h2>
+        <p>欢迎到店体验，专业团队为您提供一站式测量解决方案</p>
+      </div>
+      <div class="store-layout" style="max-width:1100px;margin:0 auto;">
+        <!-- 左：门店大图 -->
+        <div style="border-radius:12px;overflow:hidden;height:340px;">
+          <img src="images/gzmd1.jpg" alt="贵州东巍测绘仪器" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <!-- 右：门店信息 -->
+        <div>
+          <h3 style="font-size:1.25rem;font-weight:700;color:var(--dhwy-text-dark);margin-bottom:14px;">贵州东巍测绘仪器</h3>
+          <p style="color:var(--dhwy-text-gray);line-height:1.8;font-size:0.9375rem;margin-bottom:24px;">选购测量仪器，就到测绘玩家。销售各类RTK测量仪、无人机、全站仪、水准仪、经纬仪等，定制化方案满足您的各种测量需求。</p>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:36px;height:36px;min-width:36px;background:#fde8e8;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#CC0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <span style="font-weight:600;color:var(--dhwy-text-dark);">19833179332</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <div style="width:36px;height:36px;min-width:36px;background:#fde8e8;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#CC0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <p style="color:var(--dhwy-text-dark);font-size:0.875rem;line-height:1.6;margin:3px 0 0;">贵州省遵义市红花岗区湘江大道商城雅苑8栋2楼8106-8107号</p>
+            </div>
+          </div>
+          <!-- 3张小图 -->
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px;">
+            <div style="border-radius:8px;overflow:hidden;height:100px;"><img src="images/gzmd1.jpg" alt="门店环境" style="width:100%;height:100%;object-fit:cover;"></div>
+            <div style="border-radius:8px;overflow:hidden;height:100px;"><img src="images/gzmd2.jpg" alt="门店环境" style="width:100%;height:100%;object-fit:cover;"></div>
+            <div style="border-radius:8px;overflow:hidden;height:100px;"><img src="images/gzmd3.jpg" alt="门店环境" style="width:100%;height:100%;object-fit:cover;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 在线留言 + 地图 -->
+  <section class="section" style="padding-top:32px;">
+    <div class="container">
+      <div class="section-header">
+        <span class="accent-line"></span>
+        <h2>在线留言</h2>
+        <p>如有任何疑问或需求，请填写下方表单，我们将尽快与您联系</p>
+      </div>
+      <div class="contact-form-map" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:1100px;margin:0 auto;">
+        <!-- 左侧表单 -->
+        <div id="contact-form" class="contact-form-wrap">
           <div id="form-success" class="form-success">感谢您的留言，我们会尽快与您联系！</div>
-
           <div class="form-group">
             <label for="contact-name">姓名 *</label>
             <input type="text" id="contact-name" placeholder="请输入您的姓名">
             <span class="error-msg">请输入您的姓名</span>
           </div>
-
           <div class="form-group">
             <label for="contact-phone">联系电话 *</label>
             <input type="tel" id="contact-phone" placeholder="请输入您的手机号码">
             <span class="error-msg">请输入正确的手机号码</span>
           </div>
-
           <div class="form-group">
             <label for="contact-email">电子邮箱</label>
             <input type="email" id="contact-email" placeholder="请输入您的电子邮箱（选填）">
           </div>
-
           <div class="form-group">
             <label for="contact-company">公司名称</label>
             <input type="text" id="contact-company" placeholder="请输入您的公司名称（选填）">
           </div>
-
           <div class="form-group">
             <label for="contact-message">留言内容 *</label>
             <textarea id="contact-message" placeholder="请描述您的需求，如产品咨询、方案需求、售后服务等"></textarea>
             <span class="error-msg">请输入您的留言内容</span>
           </div>
-
-          <button type="submit" class="btn btn-filled" style="width:100%;">提交留言</button>
+          <button type="submit" class="btn btn-filled" style="width:100%;padding:14px;font-size:1rem;">提交留言</button>
         </div>
-      </div>
-
-      <!-- 地图占位 -->
-      <div class="map-placeholder">
-        <div style="text-align:center;">
-          <div style="font-size:2rem;margin-bottom:8px;">&#127758;</div>
-          地图位置（请替换为实际地图嵌入代码）
-        </div>
+        <!-- 右侧地图 -->
+        <div class="contact-map-wrap" id="txMap"></div>
       </div>
     </div>
   </section>
@@ -261,5 +361,29 @@
     </div>
   </footer>
 <script src="script.js"></script>
+<script src="https://map.qq.com/api/js?v=2.exp&key=4TSBZ-HYWWR-YOUW7-W43WV-2PDOV-2RBOD"></script>
+<script>
+(function(){
+  var mapEl = document.getElementById('txMap');
+  if (!mapEl) return;
+  var center = new qq.maps.LatLng(29.4093, 106.6166);
+  var map = new qq.maps.Map(mapEl, {
+    center: center,
+    zoom: 16,
+    mapStyleId: 'style1'
+  });
+  var marker = new qq.maps.Marker({
+    position: center,
+    map: map,
+    title: '东巍益华'
+  });
+  var info = new qq.maps.InfoWindow({
+    map: map,
+    position: center,
+    content: '<div style="padding:6px 12px;font-size:14px;line-height:1.6;"><strong>重庆东巍益华工程科技有限公司</strong><br>重庆市巴南区东城大道2376号附3号4楼</div>'
+  });
+  info.open();
+})();
+</script>
 </body>
 </html>
