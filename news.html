@@ -3,8 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>新闻动态 - 东巍益华</title>
+  <title>资讯中心 - 东巍益华</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .news-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 36px;
+      border-bottom: 1px solid var(--dhwy-border-light);
+    }
+    .news-tab {
+      padding: 12px 36px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--dhwy-text-gray);
+      cursor: pointer;
+      border: none;
+      background: none;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s ease;
+      margin-bottom: -1px;
+    }
+    .news-tab:hover { color: var(--dhwy-red); }
+    .news-tab.active {
+      color: var(--dhwy-red);
+      border-bottom-color: var(--dhwy-red);
+    }
+
+    .news-list-full { max-width: 900px; margin: 0 auto; }
+    .news-list-item {
+      display: flex;
+      gap: 24px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--dhwy-border-light);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+    }
+    .news-list-item:hover { background: var(--dhwy-bg-gray-light); border-radius: 8px; padding-left: 16px; padding-right: 16px; }
+    .news-thumb {
+      width: 260px; min-width: 260px; height: 160px;
+      border-radius: 8px; overflow: hidden; background: #e8e8e8;
+    }
+    .news-thumb img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .news-list-item:hover .news-thumb img { transform: scale(1.06); }
+
+    .news-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .news-info h3 {
+      font-size: 1.125rem; font-weight: 700; color: var(--dhwy-text-dark);
+      margin: 0 0 8px; line-height: 1.5;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .news-info .news-meta {
+      font-size: 0.8125rem; color: #999; margin-bottom: 10px;
+    }
+    .news-info .news-desc {
+      font-size: 0.875rem; color: var(--dhwy-text-gray); line-height: 1.7; margin: 0;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .news-info .news-btn {
+      display: inline-block; margin-top: auto;
+      font-size: 0.8125rem; font-weight: 600; color: var(--dhwy-red);
+      transition: color 0.2s;
+    }
+    .news-list-item:hover .news-btn { color: var(--dhwy-red-deep); }
+
+    .news-loading { text-align: center; padding: 60px 20px; color: #bbb; font-size: 0.9375rem; }
+    .news-empty { text-align: center; padding: 60px 20px; color: #bbb; font-size: 0.9375rem; }
+
+    @media (max-width: 768px) {
+      .news-list-item { flex-direction: column; gap: 14px; }
+      .news-thumb { width: 100%; min-width: 100%; height: 200px; }
+      .news-tab { padding: 10px 20px; font-size: 0.875rem; }
+    }
+  </style>
 </head>
 <body>
 
@@ -18,9 +94,9 @@
         <a href="index.html">首页</a>
         <a href="products.html">产品中心</a>
         <a href="solutions.html">解决方案</a>
-        <a href="brands.html">授权品牌</a>
+        <a href="downloads.html">下载中心</a>
         <a href="about.html">关于我们</a>
-        <a href="news.html" class="active">新闻动态</a>
+        <a href="news.html" class="active">资讯中心</a>
         <a href="contact.html" class="nav-contact-link">联系我们</a>
       </div>
       <div class="nav-actions">
@@ -42,122 +118,47 @@
       <a href="index.html">首页</a>
       <a href="products.html">产品中心</a>
       <a href="solutions.html">解决方案</a>
-      <a href="brands.html">授权品牌</a>
+      <a href="downloads.html">下载中心</a>
       <a href="about.html">关于我们</a>
-      <a href="news.html" class="active">新闻动态</a>
+      <a href="news.html" class="active">资讯中心</a>
       <a href="contact.html">联系我们</a>
       <a href="login.html">登录</a>
       <a href="cart.html">购物车</a>
     </div>
   </nav>
 
-  <section class="page-hero">
+  <section class="page-hero" style="min-height:600px;position:relative;display:flex;align-items:center;background:linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)),url('images/hyjjbanner.jpg') center/cover no-repeat;background-color:#1a1a1a;">
     <div class="container">
-      <h1>新闻动态</h1>
-      <div class="breadcrumb">
-        <a href="index.html">首页</a><span class="separator">/</span><span class="current">新闻动态</span>
+      <h1>资讯中心</h1>
+      <p style="color:rgba(255,255,255,0.75);font-size:0.9375rem;max-width:600px;margin:12px auto 0;">关注东巍益华最新动态，了解测绘行业前沿资讯与技术进展</p>
+    </div>
+    <div style="position:absolute;bottom:20px;left:0;right:0;">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="index.html">首页</a><span class="separator">/</span><span class="current">资讯中心</span>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <div class="news-list-full">
-        <a href="#" class="news-list-item">
-          <div class="news-date-block">
-            <span class="day">01</span>
-            <span class="month">2026/06</span>
-          </div>
-          <div class="news-item-content">
-            <h3>东巍益华荣获华测导航2026年度优秀代理商称号</h3>
-            <p>在刚刚结束的华测导航2026年度合作伙伴大会上，东巍益华凭借出色的销售业绩和优质的服务品质，荣获年度优秀代理商称号。</p>
-          </div>
-        </a>
-        <a href="#" class="news-list-item">
-          <div class="news-date-block">
-            <span class="day">15</span>
-            <span class="month">2026/05</span>
-          </div>
-          <div class="news-item-content">
-            <h3>北斗中移新品BD-SKY V3无人机航测系统正式上市</h3>
-            <p>北斗中移最新一代无人机航测系统BD-SKY V3正式发布，飞行时间提升至60分钟，支持更高精度的测绘作业。</p>
-          </div>
-        </a>
-        <a href="#" class="news-list-item">
-          <div class="news-date-block">
-            <span class="day">28</span>
-            <span class="month">2026/04</span>
-          </div>
-          <div class="news-item-content">
-            <h3>南方测绘2026全国巡展武汉站圆满落幕</h3>
-            <p>南方测绘2026全国巡展武汉站在东巍益华的全力协办下圆满举行，展示了多款前沿测绘设备与解决方案。</p>
-          </div>
-        </a>
-        <a href="#" class="news-list-item">
-          <div class="news-date-block">
-            <span class="day">10</span>
-            <span class="month">2026/04</span>
-          </div>
-          <div class="news-item-content">
-            <h3>东巍益华技术服务团队完成年度专业技能培训</h3>
-            <p>公司技术服务团队全员完成华测、南方测绘2026年度技术认证培训，持续提升服务水平。</p>
-          </div>
-        </a>
-        <a href="#" class="news-list-item">
-          <div class="news-date-block">
-            <span class="day">22</span>
-            <span class="month">2026/03</span>
-          </div>
-          <div class="news-item-content">
-            <h3>科力达2026新品发布会暨经销商大会成功举办</h3>
-            <p>科力达在2026年春季新品发布会上推出KRTK-S1经济型RTK等新品，东巍益华作为核心代理商受邀出席。</p>
-          </div>
-        </a>
-        <a href="#" class="news-list-item">
-          <div class="news-date-block">
-            <span class="day">05</span>
-            <span class="month">2026/03</span>
-          </div>
-          <div class="news-item-content">
-            <h3>东巍益华启动2026年春季设备巡检服务活动</h3>
-            <p>为回馈客户，公司推出春季设备免费巡检活动，覆盖全国主要服务区域。</p>
-          </div>
-        </a>
-        <a href="#" class="news-list-item">
-          <div class="news-date-block">
-            <span class="day">18</span>
-            <span class="month">2026/02</span>
-          </div>
-          <div class="news-item-content">
-            <h3>华测i90惯导RTK在大型桥梁工程中成功应用</h3>
-            <p>华测i90惯导RTK在某大型桥梁工程项目中实现高效精准放样，获得施工方高度评价。</p>
-          </div>
-        </a>
-        <a href="#" class="news-list-item">
-          <div class="news-date-block">
-            <span class="day">08</span>
-            <span class="month">2026/01</span>
-          </div>
-          <div class="news-item-content">
-            <h3>东巍益华2025年度总结大会圆满召开</h3>
-            <p>公司召开2025年度总结大会，回顾过去一年发展成果，规划2026年战略方向。</p>
-          </div>
-        </a>
+      <!-- TAB 切换 -->
+      <div class="news-tabs" id="newsTabs"></div>
+
+      <!-- 文章列表 -->
+      <div class="news-list-full" id="newsList">
+        <div class="news-loading">正在加载...</div>
       </div>
 
-      <div class="pagination" style="margin-top:40px;">
-        <a href="#" class="active">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">&raquo;</a>
-      </div>
+      <!-- 分页 -->
+      <div class="pagination" id="newsPagination" style="margin-top:40px;text-align:center;"></div>
     </div>
   </section>
 
   <footer class="footer">
     <div class="container">
       <div class="footer-main">
-        <!-- 左：联系方式 -->
         <div class="footer-contact">
           <div class="footer-logo">
             <img src="images/logo.png" alt="东巍益华" class="footer-logo-img">
@@ -176,82 +177,28 @@
             <a href="mailto:info@dongweiyihua.com">info@dongweiyihua.com</a>
           </div>
         </div>
-
-        <!-- 中：导航链接列 -->
         <div class="footer-nav">
-          <div class="footer-nav-col">
-            <h4>产品中心</h4>
-            <a href="products.html">测绘仪器</a>
-            <a href="products.html">全站仪</a>
-            <a href="products.html">无人机</a>
-            <a href="products.html">工程测量</a>
-            <a href="products.html">测绘配件</a>
-          </div>
-          <div class="footer-nav-col">
-            <h4>解决方案</h4>
-            <a href="solutions.html">智能测绘</a>
-            <a href="solutions.html">智慧水利</a>
-            <a href="solutions.html">智慧水文</a>
-            <a href="solutions.html">地灾监测</a>
-            <a href="solutions.html">智慧矿山</a>
-          </div>
-          <div class="footer-nav-col">
-            <h4>服务支持</h4>
-            <a href="contact.html">售后服务</a>
-            <a href="contact.html">技术支持</a>
-            <a href="contact.html">仪器租赁</a>
-            <a href="contact.html">维修校准</a>
-          </div>
-          <div class="footer-nav-col">
-            <h4>东巍益华</h4>
-            <a href="about.html">公司简介</a>
-            <a href="about.html">企业文化</a>
-            <a href="about.html">资质荣誉</a>
-          </div>
-          <div class="footer-nav-col">
-            <h4>资讯中心</h4>
-            <a href="news.html">公司新闻</a>
-            <a href="news.html">行业动态</a>
-            <a href="news.html">技术文章</a>
-          </div>
-          <div class="footer-nav-col">
-            <h4>线上商城</h4>
-            <a href="contact.html">微信商城</a>
-            <a href="contact.html">京东商城</a>
-            <a href="contact.html">淘宝商城</a>
-          </div>
+          <div class="footer-nav-col"><h4>产品中心</h4><a href="products.html">测绘仪器</a><a href="products.html">全站仪</a><a href="products.html">无人机</a><a href="products.html">工程测量</a><a href="products.html">测绘配件</a></div>
+          <div class="footer-nav-col"><h4>解决方案</h4><a href="solutions.html">智能测绘</a><a href="solutions.html">智慧水利</a><a href="solutions.html">智慧水文</a><a href="solutions.html">地灾监测</a><a href="solutions.html">智慧矿山</a></div>
+          <div class="footer-nav-col"><h4>服务支持</h4><a href="contact.html">售后服务</a><a href="contact.html">技术支持</a><a href="contact.html">仪器租赁</a><a href="contact.html">维修校准</a></div>
+          <div class="footer-nav-col"><h4>东巍益华</h4><a href="about.html">公司简介</a><a href="about.html">企业文化</a><a href="about.html">资质荣誉</a></div>
+          <div class="footer-nav-col"><h4>资讯中心</h4><a href="news.html">公司新闻</a><a href="news.html">行业动态</a><a href="news.html">技术文章</a></div>
+          <div class="footer-nav-col"><h4>线上商城</h4><a href="contact.html">微信商城</a><a href="contact.html">京东商城</a><a href="contact.html">淘宝商城</a></div>
         </div>
-
-        <!-- 右：二维码 -->
         <div class="footer-side">
           <div class="footer-qr-row">
-            <div class="footer-qr-item">
-              <img src="images/fuwuhao.jpg" alt="微信服务号" class="footer-qr-img">
-              <p>微信服务号</p>
-            </div>
-            <div class="footer-qr-item">
-              <img src="images/dingyuehao.jpg" alt="微信订阅号" class="footer-qr-img">
-              <p>微信订阅号</p>
-            </div>
-            <div class="footer-qr-item">
-              <img src="images/douyin.jpg" alt="抖音号" class="footer-qr-img">
-              <p>抖音号</p>
-            </div>
-            <div class="footer-qr-item">
-              <img src="images/kefu.jpg" alt="客服微信" class="footer-qr-img">
-              <p>客服微信</p>
-            </div>
+            <div class="footer-qr-item"><img src="images/fuwuhao.jpg" alt="微信服务号" class="footer-qr-img"><p>微信服务号</p></div>
+            <div class="footer-qr-item"><img src="images/dingyuehao.jpg" alt="微信订阅号" class="footer-qr-img"><p>微信订阅号</p></div>
+            <div class="footer-qr-item"><img src="images/douyin.jpg" alt="抖音号" class="footer-qr-img"><p>抖音号</p></div>
+            <div class="footer-qr-item"><img src="images/kefu.jpg" alt="客服微信" class="footer-qr-img"><p>客服微信</p></div>
           </div>
         </div>
       </div>
-
-      <!-- 友情链接（独立行） -->
       <div class="footer-friend-links">
         <span>友情链接：</span>
         <a href="https://www.huace.cn" target="_blank" rel="nofollow">华测导航</a>
         <a href="https://www.southsurvey.com" target="_blank" rel="nofollow">南方测绘</a>
       </div>
-
       <div class="footer-bottom">
         <span>&copy; 2026 东巍益华 版权所有</span>
         <span>ICP备案号：黔ICP备XXXXXXXX号</span>
@@ -259,6 +206,142 @@
       </div>
     </div>
   </footer>
-<script src="script.js"></script>
+
+<script>
+// ======================================================
+// CRMEB PC端文章API —— 自动检测环境
+// 部署到服务器后自动使用相对路径 /api/pc/
+// ======================================================
+var TARGET_CIDS = [1, 2, 3]; // 企业动态(1)、媒体报道(2)、行业新闻(3)
+var currentCid = TARGET_CIDS[0];
+var currentPage = 1;
+var catMap = {};
+var PAGE_SIZE = 5;
+
+function apiGet(path) {
+  var url = '/api/pc' + path;
+  return fetch(url, { credentials: 'include' })
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status + ' ' + url);
+      return r.json();
+    })
+    .then(function(res) {
+      if (res.status === 200) return res.data !== undefined ? res.data : [];
+      throw new Error((res.msg || res.message || 'status!==200') + ' ' + url);
+    });
+}
+
+function renderTabs() {
+  var tabs = document.getElementById('newsTabs');
+  var html = '';
+  TARGET_CIDS.forEach(function(cid) {
+    var name = catMap[cid] || ('分类' + cid);
+    html += '<button class="news-tab' + (cid === currentCid ? ' active' : '') + '" data-cid="' + cid + '">' + name + '</button>';
+  });
+  tabs.innerHTML = html;
+}
+
+function getArticleImg(item) {
+  if (item.image_input) {
+    var raw = item.image_input;
+    var imgs = typeof raw === 'string' ? raw.split(',') : (Array.isArray(raw) ? raw : []);
+    var first = (imgs[0] || '').trim();
+    if (first) return first;
+  }
+  return 'images/行业解决方案_001.jpg';
+}
+
+function renderList(articles) {
+  var el = document.getElementById('newsList');
+  if (!articles || !articles.length) {
+    el.innerHTML = '<div class="news-empty">暂无内容</div>';
+    return;
+  }
+  var html = '';
+  articles.forEach(function(a) {
+    var img = getArticleImg(a);
+    html +=
+      '<a href="news-detail.html?id=' + a.id + '" class="news-list-item">' +
+        '<div class="news-thumb"><img src="' + img + '" alt="' + (a.title || '') + '" loading="lazy" onerror="this.parentNode.style.background=\'#f0f0f0\'"></div>' +
+        '<div class="news-info">' +
+          '<h3>' + (a.title || '') + '</h3>' +
+          '<p class="news-meta">' + (a.add_time || '') + '</p>' +
+          '<p class="news-desc">' + (a.synopsis || '') + '</p>' +
+          '<span class="news-btn">查看详情</span>' +
+        '</div>' +
+      '</a>';
+  });
+  el.innerHTML = html;
+}
+
+function renderPagination(total) {
+  var pag = document.getElementById('newsPagination');
+  var totalPages = Math.ceil(total / PAGE_SIZE);
+  if (totalPages <= 1) { pag.innerHTML = ''; return; }
+  var phtml = '';
+  for (var i = 1; i <= totalPages; i++) {
+    phtml += '<a href="#" class="' + (i === currentPage ? 'active' : '') + '" data-page="' + i + '">' + i + '</a>';
+  }
+  pag.innerHTML = phtml;
+}
+
+function loadArticles(cid, page) {
+  document.getElementById('newsList').innerHTML = '<div class="news-loading">正在加载...</div>';
+  document.getElementById('newsPagination').innerHTML = '';
+
+  apiGet('/get_news_list?cid=' + cid + '&page=' + page + '&limit=' + PAGE_SIZE)
+    .then(function(data) {
+      var list = data.list || [];
+      var count = data.count || list.length;
+      renderList(list);
+      renderPagination(count);
+    })
+    .catch(function(err) {
+      console.error(err.message);
+      document.getElementById('newsList').innerHTML =
+        '<div class="news-empty">' +
+          '加载失败：' + err.message + '<br><br>' +
+          '<small>请确认：<br>' +
+          '1. 页面须部署到服务器上（非 file:// 本地打开）<br>' +
+          '2. 通过 http://101.43.99.228/home/news.html 访问<br>' +
+          '3. CRMEB 后台运行正常</small>' +
+        '</div>';
+    });
+}
+
+document.getElementById('newsTabs').addEventListener('click', function(e) {
+  if (e.target.classList.contains('news-tab') && !e.target.classList.contains('active')) {
+    currentCid = parseInt(e.target.getAttribute('data-cid'));
+    currentPage = 1;
+    loadArticles(currentCid, currentPage);
+    document.querySelectorAll('.news-tab').forEach(function(t) { t.classList.remove('active'); });
+    e.target.classList.add('active');
+  }
+});
+
+document.getElementById('newsPagination').addEventListener('click', function(e) {
+  if (e.target.tagName === 'A') {
+    e.preventDefault();
+    currentPage = parseInt(e.target.getAttribute('data-page'));
+    loadArticles(currentCid, currentPage);
+    window.scrollTo({ top: document.getElementById('newsList').offsetTop - 100, behavior: 'smooth' });
+  }
+});
+
+// 初始化
+apiGet('/get_news_category')
+  .then(function(list) {
+    list.forEach(function(cat) { catMap[cat.id] = cat.title; });
+    console.log('分类:', list);
+    renderTabs();
+    loadArticles(currentCid, currentPage);
+  })
+  .catch(function(err) {
+    console.error(err.message);
+    TARGET_CIDS.forEach(function(cid) { catMap[cid] = '分类' + cid; });
+    renderTabs();
+    loadArticles(currentCid, currentPage);
+  });
+</script>
 </body>
 </html>
